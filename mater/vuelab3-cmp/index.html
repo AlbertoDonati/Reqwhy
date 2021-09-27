@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue components</title>
+</head>
+<body>
+<div id="app">
+    <my-cmp></my-cmp>
+
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    const cmpButton = {
+        props:[
+            'status'
+        ],
+        methods: {
+            changeStatus: function (){
+                status = "offline"
+            }
+        },
+        template: '<button @onclik="changeStatus">change status</button>'
+    }
+    const cmp =  {
+        data(){
+            return {
+                status: 'online'
+            }
+        },
+        template: `<div>
+        <p>Server status: {{ status }}</p>
+        <cmp-button></cmp-button>
+        </div>`,
+        components: {
+            'cmp-button': cmpButton
+        }
+    }
+
+    var app = new Vue({
+        el: "#app",
+        components: {
+            'my-cmp': cmp
+        }
+    })
+</script>
+
+</body>
+</html>
