@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mio teplate per vue</title>
+</head>
+<body>
+
+<div id="app" >{{miomessaggio}}</div>
+<div id ="app2">
+
+</div>
+<div id ="app3">
+    <div>
+        <button>clicca qui</button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<script>
+    var app = new Vue({
+      el: "#app",
+      data: function (){
+        return {
+            miomessaggio : "Hello"
+        }
+      }
+    })
+    var app2 = new Vue({
+      el: "#app2",
+      template: '<h1>{{ miomessaggio}}</h1>',
+      data: function (){
+        return {
+          miomessaggio : "Hello"
+        }
+      }
+    })
+
+<!-- se tolgo il tamplate non verrà caricato nel DOM -->
+
+    var app3 = new Vue({
+      el: "#app3",
+      template: '<div>'+
+                    '<button>clicca qui</button>'+
+                     '</div>',
+      data: function (){
+        return {
+          miomessaggio : "Hello"
+        }
+      }
+    })
+
+</script>
+
+</body>
+</html>

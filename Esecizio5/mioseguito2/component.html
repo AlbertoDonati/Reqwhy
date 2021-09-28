@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Component template </title>
+</head>
+<body>
+
+<div id="app">
+<my-component></my-component>
+    <hr>
+    <my-component></my-component>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<script>
+  Vue.component('my-component',{
+    template: '<p>Server: status: {{ status }}</p>',
+    data: function (){
+      return {
+        status : "online"
+      }
+    }
+  })
+
+    var app = new Vue({
+      el: "#app"
+    })
+</script>
+
+</body>
+</html>
