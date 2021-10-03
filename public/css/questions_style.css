@@ -1,0 +1,12 @@
+.card-header-questions{
+    width: 30%;
+    box-sizing: border-box;
+    margin-left: 2%;
+    height: 200px;
+    display: inline-flex;
+    flex-direction: row;
+    border: cornflowerblue;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: lightcoral;
+}
