@@ -7,5 +7,5 @@ module.exports = function(mongoose) {
         area: String,
         category: String,
     });
-    return mongoose.model('questionmodel', QuestionSchema, 'questions');
+    return mongoose.model('questionmodel', QuestionSchema, 'Questions');
 };

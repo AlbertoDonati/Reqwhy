@@ -4,6 +4,7 @@ const Navbar = {
           <div id="navbarNav">
             <ul class="navbar-nav">
                 <a class="nav-link" href="./">Questions</a>
+        <!--       <a class="nav-link" href="./questions/">IT</a> -->
                 <a class="nav-link" href="./crudquestions">CrudQuestions</a>
                 <a class="nav-link" href="./login">Login</a>
                 <a class="nav-link" href="./settings">Settings</a>

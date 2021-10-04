@@ -16,22 +16,14 @@ exports.list_questions = function(req, res) {
 			res.json(question);
 	});
 };
-/*
+
 exports.list_questions_by_area = function(req, res) {
-	Question.find({area: req.params.area}, function (err, result) {
+	Question.find({area: req.params.area}, function (err, question) {
 		if (err)
 			res.send(err);
-		else {
-			if (result.deletedCount == 0) {
-				res.status(404).send({
-					description: 'Question not found'
-				});
-			} else {
-				res.json({message: 'Questions successfully finded'});
-			}
-		}
+			res.json(question);
 	});
-};	*/
+};
 
 	exports.read_question = function(req, res) {
 
