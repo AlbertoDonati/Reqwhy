@@ -9,31 +9,49 @@ const CrudQuestions = {
 	</div>
 	<div class="row" v-if="adding">
 		<div class="col">
-			<form>
+			<form id="formCrud">
 				<div class="form-group">
 					<label>Title</label>
-					<input v-model="new_question.titleQuestion" type="text" class="form-control" id="titleQuestion" placeholder="Enter title">
+					<input class="form-control" v-model="new_question.titleQuestion" type="text" id="titleQuestion" placeholder="Enter title">
 				</div>
 				<div class="form-group">
 					<label>Description</label>
-					<textarea v-model="new_question.descriptionQuestion" class="form-control" id="descriptionQuestion"></textarea>
+					<textarea class="form-control" v-model="new_question.descriptionQuestion" id="descriptionQuestion"></textarea>
 				</div>
 				<div class="form-group">
 					<label>Date</label>
 					<input v-model="new_question.dateQuestion" type="date" class="form-control" id="dateQuestion" >
 				</div>
 				<div class="form-group">
-					<label>Area</label>
-					<textarea v-model="new_question.area" class="form-control" id="area"></textarea>
-				</div>
-				<div class="form-group">
-					<label>Category</label>
-					<textarea v-model="new_question.category" class="form-control" id="category"></textarea>
-				</div>
-				<button @click.prevent="addQuestion" type="submit" class="btn btn-primary">Submit</button>
-				<button @click.prevent="hideAddQuestion" text="submit" class="btn btn-danger">Cancel</button>
-
+				<label>Area</label>
+				<div class="form-check">
+        <input class="form-check-input" type="radio" value="IT" v-model="new_question.area" id="radioBtn">
+        <label class="form-check-label" for="radioBtn" >IT</label>
+        </div>
+        <div class="form-check">
+        <input class="form-check-input" type="radio" value="MATH" v-model="new_question.area" id="radioMATH">
+        <label class="form-check-label" for="radioBtn" >MATH</label>
+        </div>
+        <div class="form-check">
+        <input class="form-check-input" type="radio" value="SCIENCE" v-model="new_question.area" id="radioSCIENCE">
+        <label class="form-check-label" for="radioBtn" >SCIENCE</label>
+        </div>
+        <div class="form-check">
+        <input class="form-check-input" type="radio" value="HISTORY" v-model="new_question.area" id="radioHISTORY">
+        <label class="form-check-label" for="radioBtn" >HISTORY</label>
+        </div>
+        <div class="form-check">
+        <input class="form-check-input" type="radio" value="ART" v-model="new_question.area" id="radioART">
+        <label class="form-check-label" for="radioBtn" >ART</label>
+        </div>
+        <div class="form-check">
+        <input class="form-check-input" type="radio" value="OTHER" v-model="new_question.area" id="radioOTHER">
+        <label class="form-check-label" for="radioBtn">OTHER</label>
+        </div>
+        </div>
 			</form>
+				<button @click.prevent="addQuestion" type="submit" class="btn btn-primary">Submit</button>
+				<button @click.prevent="hideAddQuestion" type="cancel" class="btn btn-danger">Cancel</button>
 		</div>
 	</div>
 	<div class="row">
@@ -78,8 +96,7 @@ const CrudQuestions = {
         desriptionQuestion: "",
         dateQuestion: "",
         area: "",
-        category: ""
-      }
+      },
     }
   },
 
@@ -112,6 +129,7 @@ const CrudQuestions = {
           console.log(error);
         })
     }
+
   },
 
   mounted() {
