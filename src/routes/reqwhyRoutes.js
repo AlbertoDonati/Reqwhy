@@ -1,4 +1,3 @@
-const questionsController = require("../controllers/questionsController.js");
 module.exports = function(app) {
 	var questionsController = require('../controllers/questionsController.js');
 
