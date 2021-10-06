@@ -13,7 +13,7 @@
 <div id="crud-questions-app" class="container-fluid">
     <navbar></navbar>
     <h1>Crud Questions App</h1>
-    <router-view></router-view>
+    <router-view :key="$route.fullPath"></router-view>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -21,6 +21,7 @@
 <script src="https://npmcdn.com/vue-router/dist/vue-router.js"></script>
 <script src="/static/js/questions.js"></script>
 <script src="/static/js/crudquestions.js"></script>
+<script src="/static/js/questionsbyarea.js"></script>
 <script src="/static/js/navbar.js"></script>
 <script src="/static/js/404.js"></script>
 <script src="/static/js/router.js"></script>

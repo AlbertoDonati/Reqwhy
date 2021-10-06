@@ -9,6 +9,10 @@ exports.show_crud_questions = function(req, res) {
 	res.sendFile(appRoot  + '/www/crudquestions.html');
 };
 
+exports.show_questions_by_area = function(req, res) {
+	res.sendFile(appRoot  + '/www/questionsbyarea.html');
+};
+
 exports.list_questions = function(req, res) {
 	Question.find({}, (err, question) => {
 		if (err)

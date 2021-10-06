@@ -1,3 +1,4 @@
+const questionsController = require("../controllers/questionsController.js");
 module.exports = function(app) {
 	var questionsController = require('../controllers/questionsController.js');
 
@@ -15,4 +16,6 @@ module.exports = function(app) {
 
 	app.use(questionsController.show_questions);
 	app.use(questionsController.show_crud_questions);
+  app.use(questionsController.show_questions_by_area);
+
 };
