@@ -19,8 +19,10 @@ const CrudQuestions = {
 					<textarea class="form-control" v-model="new_question.descriptionQuestion" id="descriptionQuestion"></textarea>
 				</div>
 				<div class="form-group">
-					<label>Date</label>
+					<label>Date {{new_question.dateQuestion | limit(10)}} </label>
+					<!---
 					<input v-model="new_question.dateQuestion" type="date" class="form-control" id="dateQuestion" >
+				  -->
 				</div>
 				<div class="form-group">
 				<label>Area</label>
@@ -94,7 +96,7 @@ const CrudQuestions = {
       new_question: {
         titleQuestion: "",
         desriptionQuestion: "",
-        dateQuestion: "",
+        dateQuestion: new Date(Date.now()).toISOString(),
         area: "",
       },
     }
