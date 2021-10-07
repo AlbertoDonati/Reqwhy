@@ -16,7 +16,7 @@ const CrudQuestions = {
 				</div>
 				<div class="form-group">
 					<label>Description</label>
-					<textarea class="form-control" v-model="new_question.descriptionQuestion" id="descriptionQuestion"></textarea>
+					<textarea class="form-control" v-model="new_question.descriptionQuestion" id="descriptionQuestion" placeholder="Enter description"></textarea>
 				</div>
 				<div class="form-group">
 					<label>Date {{new_question.dateQuestion | limit(10)}} </label>
@@ -65,8 +65,7 @@ const CrudQuestions = {
 					<th scope="col">Description</th>
 					<th scope="col">Date</th>
 					<th scope="col">Area</th>
-					<th scope="col">Category</th>
-					<th scope="col">Delete</th>
+					<th scope="col">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -75,10 +74,12 @@ const CrudQuestions = {
 				<td>{{question.descriptionQuestion | limit(30)}}</td>
 				<td>{{question.dateQuestion | limit(10)}}</td>
 				<td>{{question.area}}</td>
-				<td>{{question.category}}</td>
 				<td>
 					<button @click.prevent="deleteQuestion(question._id,index)" type="button" class="btn btnsm">
 						<i class="fas fa-trash-alt"></i>
+					</button>
+					<button @click.prevent="toRead(question._id)" type="button" class="btn btnsm">
+						<i class="fas fa-pen-alt"></i>
 					</button>
 				</td>
 			</tr>
@@ -130,7 +131,21 @@ const CrudQuestions = {
         .catch(error => {
           console.log(error);
         })
-    }
+    },
+    readQuestion(question_id){
+      axios.get("http://localhost:3000/api/questions/"+question_id)
+        .then(response => {
+          this.questions.push(response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        })
+    },
+    toRead(question_id){
+      this.readQuestion(question_id);
+      console.log("lettura fatta");
+     // console.log(response.data);
+    },
 
   },
 
