@@ -78,9 +78,6 @@ const CrudQuestions = {
 					<button @click.prevent="deleteQuestion(question._id,index)" type="button" class="btn btnsm">
 						<i class="fas fa-trash-alt"></i>
 					</button>
-					<button @click.prevent="toRead(question._id)" type="button" class="btn btnsm">
-						<i class="fas fa-pen-alt"></i>
-					</button>
 					<button @click.prevent="sendIdToAnswer(question._id)" type="button" class="btn btnsm">
 						<i class="fas fa-pen-alt"></i>
 					</button>
@@ -135,21 +132,6 @@ const CrudQuestions = {
           console.log(error);
         })
     },
-    readQuestion(question_id){
-      axios.get("http://localhost:3000/api/questions/"+question_id)
-        .then(response => {
-          this.questions.push(response.data);
-        })
-        .catch(error => {
-          console.log(error);
-        })
-    },
-    toRead(question_id){
-      this.readQuestion(question_id);
-      console.log("lettura fatta");
-     // console.log(response.data);
-    },
-
     sendIdToAnswer(question_id){
       console.log("apro le risposte della domanda " + question_id)
       router.push({ path: `/answersbyid/${question_id}` })
@@ -157,9 +139,8 @@ const CrudQuestions = {
 
   },
 
-
   mounted() {
-    this.listQuestions(this.question_id);
+    this.listQuestions();
   },
 
   filters: {

@@ -33,6 +33,7 @@ const AnswersByQuestionId = {
 
 	data: function (){
 		return {
+		//serve per la roba commentata sotto	questions: [],
 			answers: [],
 			question: this.$route.params.question,
 		}
@@ -45,6 +46,24 @@ const AnswersByQuestionId = {
 					this.answers = response.data;
 				})
 		},
+
+		/* ERA IN CRUD QUESTIONS MA VA QUI E MESSO A POSTO
+		//USARE UNA CARD PER VISUALIZZARE LA DOMANDA POTREBBE ESSERE BELLO
+		//RICORDARE NEL FUTURO CEH SE ELIMINO DOMANDA DEVO ELIMINARE ANHE RISPOSTE A LEI COLLEGATA
+		readQuestion(question_id){
+			axios.get("http://localhost:3000/api/questions/"+question_id)
+				.then(response => {
+					this.questions.push(response.data);
+				})
+				.catch(error => {
+					console.log(error);
+				})
+		},
+		toRead(question_id){
+			this.readQuestion(question_id);
+			console.log("lettura fatta");
+			// console.log(response.data);
+		},*/
 
 	},
 
