@@ -81,6 +81,9 @@ const CrudQuestions = {
 					<button @click.prevent="toRead(question._id)" type="button" class="btn btnsm">
 						<i class="fas fa-pen-alt"></i>
 					</button>
+					<button @click.prevent="sendIdToAnswer(question._id)" type="button" class="btn btnsm">
+						<i class="fas fa-pen-alt"></i>
+					</button>
 				</td>
 			</tr>
 			</tbody>
@@ -147,10 +150,16 @@ const CrudQuestions = {
      // console.log(response.data);
     },
 
+    sendIdToAnswer(question_id){
+      console.log("apro le risposte della domanda " + question_id)
+      router.push({ path: `/answersbyid/${question_id}` })
+    },
+
   },
 
+
   mounted() {
-    this.listQuestions();
+    this.listQuestions(this.question_id);
   },
 
   filters: {

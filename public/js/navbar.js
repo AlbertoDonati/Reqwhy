@@ -32,6 +32,7 @@ const Navbar = {
             <ul class="navbar-nav">
                 <navbutton text="Questions" @clicked="onClickChild()"></navbutton>
                 <navbutton text="CrudQuestions" @clicked="onClickChild()"></navbutton>
+                <navbutton text="Answers" @clicked="onClickChild()"></navbutton>
                
                 <li><router-link class="nav-link" :to="'/area/' + 'IT'">IT</router-link></li>
                 <li><router-link class="nav-link" :to="'/area/' + 'MATH'">MATH</router-link></li>

@@ -2,9 +2,6 @@ const Questions = {
 	template: `
 <div id="questions-component" class="container-fluid">
 	<h1>Questions Component</h1>
-				<!---
-				<button @click="listQuestionsByArea(area)" type="button" class="btn btn-success"><i class="fas fa-plus"></i>ESPLODI</button>
-				-->
 	<div class="row">
 		<div class="col">
 		<table class="table responsive">
@@ -33,7 +30,6 @@ const Questions = {
 	data: function (){
 		return {
 			questions: [],
-			<!--- area: "IT", -->
 		}
 	},
 
@@ -44,13 +40,6 @@ const Questions = {
 					this.questions = response.data;
 				})
 		},
-		/*
-		listQuestionsByArea(area){
-			axios.get("http://localhost:3000/api/questionsbyarea/" + area)
-				.then( response => {
-					this.questions = response.data;
-				})
-		},*/
 	},
 
 	mounted() {
