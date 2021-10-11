@@ -63,6 +63,7 @@ const CrudQuestions = {
 				<tr>
 					<th scope="col">Title</th>
 					<th scope="col">Description</th>
+					<th scope="col">User</th>
 					<th scope="col">Date</th>
 					<th scope="col">Area</th>
 					<th scope="col">Actions</th>
@@ -72,6 +73,7 @@ const CrudQuestions = {
 			<tr v-for="(question,index) in questions" :key="question._id">
 				<td>{{question.titleQuestion}}</td>
 				<td>{{question.descriptionQuestion | limit(30)}}</td>
+				<td>{{question.userQuestion}}</td>
 				<td>{{question.dateQuestion | limit(10)}}</td>
 				<td>{{question.area}}</td>
 				<td>
@@ -97,6 +99,7 @@ const CrudQuestions = {
       new_question: {
         titleQuestion: "",
         desriptionQuestion: "",
+        userQuestion: "UTENTE1",
         dateQuestion: new Date(Date.now()).toISOString(),
         area: "",
       },

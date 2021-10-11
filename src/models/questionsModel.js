@@ -3,9 +3,9 @@ module.exports = function(mongoose) {
     var QuestionSchema = new Schema({
         titleQuestion: String,
 		descriptionQuestion: String,
+        userQuestion: String,
         dateQuestion: Date,
         area: String,
-        userQuestion: String
     });
     return mongoose.model('questionmodel', QuestionSchema, 'Questions');
 };

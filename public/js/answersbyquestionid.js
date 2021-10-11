@@ -26,6 +26,7 @@ const AnswersByQuestionId = {
 				<tr>
 					<th scope="col">idQuestion</th>
 					<th scope="col">Text</th>
+					<th scope="col">User</th>
 					<th scope="col">Date</th>
 					<th scope="col">Tops</th>
 					<th scope="col">Loves</th>
@@ -37,6 +38,7 @@ const AnswersByQuestionId = {
 			<tr v-for="(answer,index) in answers" :key="answer._id">
 				<td>{{answer.idQuestion}}</td>
 				<td>{{answer.textAnswer | limit(30)}}</td>
+				<td>{{answer.userAnswer}}</td>
 				<td>{{answer.dateAnswer | limit(10)}}</td>
 				<td>{{answer.tops}}</td>
 				<td>{{answer.loves}}</td>
@@ -81,11 +83,12 @@ const AnswersByQuestionId = {
 		return {
 			answers: [],
 			questionReaded: String,
-			question: this.$route.params.question,
+			questionId: this.$route.params.question,
 			adding: false,
 			new_answer: {
 				idQuestion: this.$route.params.question,
 				textAnswer: "",
+				userAnswer: "UTENTE2",
 				dateAnswer: new Date(Date.now()).toISOString(),
 				tops: "",
 				loves: "",
@@ -94,6 +97,7 @@ const AnswersByQuestionId = {
 			new_mod_answer: {
 				idQuestion: "",
 				textAnswer: "",
+				userAnswer: "",
 				dateAnswer: "",
 				tops: "",
 				loves: "",
@@ -103,8 +107,8 @@ const AnswersByQuestionId = {
 	},
 
 	methods: {
-		listAnswersByQuestionId(question) {
-			axios.get("http://localhost:3000/api/answersbyquestionid/" + question)
+		listAnswersByQuestionId(question_id) {
+			axios.get("http://localhost:3000/api/answersbyquestionid/" + question_id)
 				.then(response => {
 					this.answers = response.data;
 				})
@@ -118,7 +122,7 @@ const AnswersByQuestionId = {
 				.catch(error => {
 					console.log(error);
 				})
-			console.log("lettura quetion eseguita");
+			console.log("lettura question eseguita");
 		},
 
 		showAddAnswer(){
@@ -138,6 +142,7 @@ const AnswersByQuestionId = {
 		updateAnswer(answer_id,idx,newanswer){
 				this.new_mod_answer.idQuestion =  newanswer.idQuestion;
 				this.new_mod_answer.textAnswer =  newanswer.textAnswer;
+				this.new_mod_answer.userAnswer =  newanswer.userAnswer;
 				this.new_mod_answer.dateAnswer =  newanswer.dateAnswer;
 			    this.new_mod_answer.tops =  "OHYESSSS";
 				this.new_mod_answer.loves = newanswer.lovesAnswer;
@@ -153,8 +158,8 @@ const AnswersByQuestionId = {
 	},
 
 	mounted() {
-		this.readQuestion(this.question);
-		this.listAnswersByQuestionId(this.question);
+		this.readQuestion(this.questionId);
+		this.listAnswersByQuestionId(this.questionId);
 	},
 
 	filters: {
