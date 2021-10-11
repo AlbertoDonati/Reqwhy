@@ -3,7 +3,7 @@ module.exports = function(mongoose) {
     var QuestionSchema = new Schema({
         titleQuestion: String,
 		descriptionQuestion: String,
-        userQuestion: String,
+        userIdQuestion: String,
         dateQuestion: Date,
         area: String,
     });

@@ -9,7 +9,7 @@ const AnswersByQuestionId = {
   		</div>
   		<div class="card-body">
     	<h5 class="card-title">{{questionReaded.descriptionQuestion}}</h5>
-    	<p class="card-text"><small class="text-muted">Posted on {{questionReaded.dateQuestion | limit(10)}} by {{questionReaded.userQuestion}}</small></p>
+    	<p class="card-text"><small class="text-muted">Posted on {{questionReaded.dateQuestion | limit(10)}} by {{questionReaded.userIdQuestion}}</small></p>
     	<p class="card-text"></p>
     	<a href="#" class="btn btn-primary">Go somewhere</a>
 		</div>
@@ -38,7 +38,7 @@ const AnswersByQuestionId = {
 			<tr v-for="(answer,index) in answers" :key="answer._id">
 				<td>{{answer.idQuestion}}</td>
 				<td>{{answer.textAnswer | limit(30)}}</td>
-				<td>{{answer.userAnswer}}</td>
+				<td>{{answer.userIdAnswer}}</td>
 				<td>{{answer.dateAnswer | limit(10)}}</td>
 				<td>{{answer.tops}}</td>
 				<td>{{answer.loves}}</td>
@@ -86,9 +86,9 @@ const AnswersByQuestionId = {
 			questionId: this.$route.params.question,
 			adding: false,
 			new_answer: {
-				idQuestion: this.$route.params.question,
+				idQuestion: "",
 				textAnswer: "",
-				userAnswer: "UTENTE2",
+				userIdAnswer: "",
 				dateAnswer: new Date(Date.now()).toISOString(),
 				tops: "",
 				loves: "",
@@ -97,12 +97,13 @@ const AnswersByQuestionId = {
 			new_mod_answer: {
 				idQuestion: "",
 				textAnswer: "",
-				userAnswer: "",
+				userIdAnswer: "",
 				dateAnswer: "",
 				tops: "",
 				loves: "",
 				bests: "",
 			},
+			userId : "UTENTE2",
 		}
 	},
 
@@ -112,6 +113,7 @@ const AnswersByQuestionId = {
 				.then(response => {
 					this.answers = response.data;
 				})
+			console.log("lettura answers eseguita");
 		},
 
 		readQuestion(question_id){
@@ -142,9 +144,9 @@ const AnswersByQuestionId = {
 		updateAnswer(answer_id,idx,newanswer){
 				this.new_mod_answer.idQuestion =  newanswer.idQuestion;
 				this.new_mod_answer.textAnswer =  newanswer.textAnswer;
-				this.new_mod_answer.userAnswer =  newanswer.userAnswer;
+				this.new_mod_answer.userIdAnswer =  newanswer.userIdAnswer;
 				this.new_mod_answer.dateAnswer =  newanswer.dateAnswer;
-			    this.new_mod_answer.tops =  "OHYESSSS";
+			    this.new_mod_answer.tops =  this.userId;
 				this.new_mod_answer.loves = newanswer.lovesAnswer;
 				this.new_mod_answer.bests = newanswer.bestsAnswer;
 
@@ -158,6 +160,9 @@ const AnswersByQuestionId = {
 	},
 
 	mounted() {
+		this.userId = "UTENTE2";
+		this.new_answer.userIdAnswer  = this.userId;
+		this.new_answer.idQuestion = this.questionId;
 		this.readQuestion(this.questionId);
 		this.listAnswersByQuestionId(this.questionId);
 	},

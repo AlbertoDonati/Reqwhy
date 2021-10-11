@@ -9,6 +9,7 @@ const Answers = {
 				<tr>
 					<th scope="col">idQuestion</th>
 					<th scope="col">Text</th>
+					<th scope="col">User</th>
 					<th scope="col">Date</th>
 					<th scope="col">Tops</th>
 					<th scope="col">Loves</th>
@@ -19,6 +20,7 @@ const Answers = {
 			<tr v-for="(answer,index) in answers" :key="answer._id">
 				<td>{{answer.idQuestion}}</td>
 				<td>{{answer.textAnswer | limit(30)}}</td>
+				<td>{{answer.userIdAnswer}}</td>
 				<td>{{answer.dateAnswer | limit(10)}}</td>
 				<td>{{answer.tops}}</td>
 				<td>{{answer.loves}}</td>

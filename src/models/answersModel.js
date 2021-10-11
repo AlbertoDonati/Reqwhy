@@ -3,7 +3,7 @@ module.exports = function(mongoose) {
     var AnswerSchema = new Schema({
         idQuestion: String,
         textAnswer: String,
-        userAnswer: String,
+        userIdAnswer: String,
         dateAnswer: Date,
         tops: String,
         loves: String,

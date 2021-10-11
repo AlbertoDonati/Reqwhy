@@ -73,7 +73,7 @@ const CrudQuestions = {
 			<tr v-for="(question,index) in questions" :key="question._id">
 				<td>{{question.titleQuestion}}</td>
 				<td>{{question.descriptionQuestion | limit(30)}}</td>
-				<td>{{question.userQuestion}}</td>
+				<td>{{question.userIdQuestion}}</td>
 				<td>{{question.dateQuestion | limit(10)}}</td>
 				<td>{{question.area}}</td>
 				<td>
@@ -99,10 +99,11 @@ const CrudQuestions = {
       new_question: {
         titleQuestion: "",
         desriptionQuestion: "",
-        userQuestion: "UTENTE1",
+        userIdQuestion: "",
         dateQuestion: new Date(Date.now()).toISOString(),
         area: "",
       },
+      userId: "",
     }
   },
 
@@ -144,6 +145,8 @@ const CrudQuestions = {
   },
 
   mounted() {
+    this.userId = "UTENTE1";
+    this.new_question.userIdQuestion = this.userId;
     this.listQuestions();
   },
 
