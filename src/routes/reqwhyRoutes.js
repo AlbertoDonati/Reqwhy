@@ -15,11 +15,15 @@ module.exports = function(app) {
 	app.route('/api/questionsbyarea/:area')
 		.get(questionsController.list_questions_by_area);
 
-	app.route('/api/answers')
-		.get(answersController.list_answers);
-
 	app.route('/api/answersbyquestionid/:question')
 		.get(answersController.list_answers_by_question_id);
+
+	app.route('/api/answers')
+		.get(answersController.list_answers)
+		.post(answersController.create_answer);
+
+	app.route('/api/answers/:id')
+		.put(answersController.update_answer);
 
 	app.use(questionsController.show_questions);
 	app.use(questionsController.show_crud_questions);

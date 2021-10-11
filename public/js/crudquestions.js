@@ -9,7 +9,7 @@ const CrudQuestions = {
 	</div>
 	<div class="row" v-if="adding">
 		<div class="col">
-			<form id="formCrud">
+			<form id="formCrudQuestions">
 				<div class="form-group">
 					<label>Title</label>
 					<input class="form-control" v-model="new_question.titleQuestion" type="text" id="titleQuestion" placeholder="Enter title">
@@ -123,6 +123,7 @@ const CrudQuestions = {
           this.hideAddQuestion();
         })
     },
+    //RICORDARE NEL FUTURO CEH SE ELIMINO DOMANDA DEVO ELIMINARE ANHE RISPOSTE A LEI COLLEGATA
     deleteQuestion(question_id,idx){
       axios.delete("http://localhost:3000/api/questions/"+question_id)
         .then(response => {

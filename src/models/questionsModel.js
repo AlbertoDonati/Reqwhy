@@ -5,7 +5,7 @@ module.exports = function(mongoose) {
 		descriptionQuestion: String,
         dateQuestion: Date,
         area: String,
-        category: String,
+        userQuestion: String
     });
     return mongoose.model('questionmodel', QuestionSchema, 'Questions');
 };
