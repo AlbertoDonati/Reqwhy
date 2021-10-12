@@ -1,10 +1,6 @@
 var mongoose = require('mongoose');
 Answer = require("../models/answersModel.js")(mongoose);
 
-exports.show_answers = function(req, res) {
-	res.sendFile(appRoot  + '/www/answers.html');
-};
-
 exports.list_answers = function(req, res) {
 	Answer.find({}, (err, answer) => {
 		if (err)
@@ -38,4 +34,22 @@ exports.create_answer = function(req, res) {
 			res.json(question);
 		});
 	};
+
+exports.delete_answers_by_question_id = function(req, res) {
+	Answer.deleteMany({idQuestion: req.params.question}, function(err, result) {
+
+		if (err)
+			res.send(err);
+		else{
+			if(result.deletedCount==0){
+				res.json({ message: 'No deleted answers' });
+			}
+			else{
+				res.json({ message: 'Answers successfully deleted' });
+			}
+		}
+	});
+};
+
+
 

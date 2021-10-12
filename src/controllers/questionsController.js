@@ -1,16 +1,8 @@
 var mongoose = require('mongoose');
 Question = require("../models/questionsModel.js")(mongoose);
 
-exports.show_questions = function(req, res) {
-	res.sendFile(appRoot  + '/www/questions.html');
-};
-
-exports.show_crud_questions = function(req, res) {
-	res.sendFile(appRoot  + '/www/crudquestions.html');
-};
-
-exports.show_questions_by_area = function(req, res) {
-	res.sendFile(appRoot  + '/www/questionsbyarea.html');
+exports.show_reqwhy = function(req, res) {
+	res.sendFile(appRoot  + '/www/reqwhy.html');
 };
 
 exports.list_questions = function(req, res) {

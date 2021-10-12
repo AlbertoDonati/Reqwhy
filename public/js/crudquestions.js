@@ -127,15 +127,24 @@ const CrudQuestions = {
           this.hideAddQuestion();
         })
     },
-    //RICORDARE NEL FUTURO CEH SE ELIMINO DOMANDA DEVO ELIMINARE ANHE RISPOSTE A LEI COLLEGATA
     deleteQuestion(question_id,idx){
+      axios.delete("http://localhost:3000/api/answersbyquestionid/"+question_id)
+          .then(response => {
+            console.log("Deleted answers related to question " + question_id)
+          })
+          .catch(error => {
+            console.log(error);
+          })
+
       axios.delete("http://localhost:3000/api/questions/"+question_id)
         .then(response => {
           this.questions.splice(idx,1);
+          console.log("Deleted question " + question_id)
         })
         .catch(error => {
           console.log(error);
         })
+
     },
     sendIdToAnswer(question_id){
       console.log("apro le risposte della domanda " + question_id)
