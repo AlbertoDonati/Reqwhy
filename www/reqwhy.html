@@ -24,9 +24,19 @@
 <script src="/static/js/questionsbyarea.js"></script>
 <script src="/static/js/answers.js"></script>
 <script src="/static/js/answersbyquestionid.js"></script>
+<script src="/static/js/login.js"></script>
+<script src="/static/js/signup.js"></script>
+<script src="/static/js/home.js"></script>
 <script src="/static/js/navbar.js"></script>
 <script src="/static/js/404.js"></script>
 <script src="/static/js/router.js"></script>
+
+<script>
+	if (typeof localStorage === "undefined" || localStorage === null) {
+		var LocalStorage = require('node-localstorage').LocalStorage;
+		localStorage = new LocalStorage('./scratch');
+	}
+</script>
 
 <script>
   	var app = new Vue({
