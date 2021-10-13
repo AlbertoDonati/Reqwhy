@@ -14,19 +14,19 @@ exports.create_user = function(req, res) {
     });
 };
 
-/*
+
 exports.verify_user = function(req, res) {
-    var new_user = new User(req.body);
-    User.find({username : req.params.username}, function (err, new_user) {
-        if (err)
+  //  var new_user = new User(req.body);
+    User.find({username: req.params.username} && {password: req.params.password}, function (err, user) {
+        if (err || typeof this.user === "undefined")
             res.status(404).send({
                 description: 'accidenti non va sto coso already used'
             });
         else {
-            res.json(new_user);
+            res.json(this.user);
         }
     });
-};*/
+};
 
 /*
 exports.verify_user = function(req, res) {

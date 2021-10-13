@@ -103,7 +103,7 @@ const AnswersByQuestionId = {
 				loves: "",
 				bests: "",
 			},
-			userId : "UTENTE2",
+			userId : "",
 		}
 	},
 
@@ -156,15 +156,30 @@ const AnswersByQuestionId = {
 				})
 			console.log("riposta aggiornata");
 		},
+		isSetted(){
+			if((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")){
+				console.log("no user logged");
+				return false;
+			}
+			else {
+				console.log("logged as " + this.userId);
+				return true;
+			}
+		},
 
 	},
 
 	mounted() {
-		this.userId = "UTENTE2";
-		this.new_answer.userIdAnswer  = this.userId;
-		this.new_answer.idQuestion = this.questionId;
-		this.readQuestion(this.questionId);
-		this.listAnswersByQuestionId(this.questionId);
+		this.userId = localStorage.getItem('username');
+		if(!this.isSetted()){
+			router.push({ path: `/` })
+		}
+		else {
+			this.new_answer.userIdAnswer = this.userId;
+			this.new_answer.idQuestion = this.questionId;
+			this.readQuestion(this.questionId);
+			this.listAnswersByQuestionId(this.questionId);
+		}
 	},
 
 	filters: {

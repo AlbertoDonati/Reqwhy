@@ -32,12 +32,10 @@ module.exports = function(app) {
 	app.route('/api/signup')
 		.post(usersController.create_user);
 
-	/*
 	app.route('/api/login')
 		.post(usersController.verify_user);
-	*/
 
-		/*meglio get ma get no puo avere un body accidenti*/
+	/*meglio get ma get no puo avere un body accidenti*/
 
 	app.use(questionsController.show_reqwhy);
 

@@ -21,12 +21,12 @@ const Login = {
 			<button @click.prevent="verifyUser" :disabled="!isFilled" type="submit" class="btn btn-primary">Login</button>
 			<button @click.prevent="logout" type="submit" class="btn btn-primary">Logout</button>
 			</div>
-			<!---
+			
 			<div>
 			<button @click.prevent="fakeLoginUser1" type="submit" class="btn btn-primary">FakeLoginUtente</button>
 			<button @click.prevent="fakeLoginUser2" type="submit" class="btn btn-primary">FakeLoginProf</button>
 		    </div>
-		    --->
+		    
 		</div>
 	</div>		
 </div>
@@ -37,6 +37,7 @@ const Login = {
             user: {
                 username: "",
                 password: "",
+                isTeacher: "",
             },
             userId: "",
             isLoginCorrect: true,
@@ -47,14 +48,13 @@ const Login = {
 
         /*da rivedere tutta questa perchè boh, incluso ritorno ed errori ecc */
         /*se errore sett islogincorrect a false così fa vedere il warning*/
-        /*
-        verifyUser() {
 
+        verifyUser() {
             axios.post("http://localhost:3000/api/login", this.user)
                 .then(response => {
                     console.log("login success of username" + response.username);
                 })
-        },*/
+        },
 
         /* verifyUser() {
             axios.post("http://localhost:3000/api/login", this.new_user)
@@ -71,18 +71,8 @@ const Login = {
         /*  console.log("CAVOLO" + response.data);
         console.log("login success")
         localStorage.setItem('username', response.data.username);
-        this.toldUserLogged(); */
+        this.isSetted(); */
 
-
-
-        toldUserLogged(){
-            if((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")){
-                console.log("no user logged");
-            }
-            else {
-                console.log("logged as " + this.userId);
-            }
-        },
         isSetted(){
             if((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")){
                 console.log("no user logged");
@@ -102,20 +92,20 @@ const Login = {
 
         fakeLoginUser1(){
             localStorage.setItem('username', "utente");
-            this.toldUserLogged();
+            this.isSetted();
             router.push({ path: `/` });
         },
 
         fakeLoginUser2(){
             localStorage.setItem('username', "prof");
-            this.toldUserLogged();
+            this.isSetted();
             router.push({ path: `/` });
         },
 
         init() {
             this.userId = localStorage.getItem('username');
             console.log("login opened");
-            this.toldUserLogged();
+            this.isSetted();
         }
 
     },

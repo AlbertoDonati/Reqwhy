@@ -150,13 +150,28 @@ const CrudQuestions = {
       console.log("apro le risposte della domanda " + question_id)
       router.push({ path: `/answersbyid/${question_id}` })
     },
+    isSetted(){
+      if((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")){
+        console.log("no user logged");
+        return false;
+      }
+      else {
+        console.log("logged as " + this.userId);
+        return true;
+      }
+    },
 
   },
 
   mounted() {
-    this.userId = "UTENTE1";
-    this.new_question.userIdQuestion = this.userId;
-    this.listQuestions();
+    this.userId = localStorage.getItem('username');
+    if(!this.isSetted()){
+      router.push({ path: `/` })
+    }
+    else {
+      this.new_question.userIdQuestion = this.userId;
+      this.listQuestions();
+    }
   },
 
   filters: {
