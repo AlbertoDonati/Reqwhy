@@ -27,13 +27,21 @@ exports.create_answer = function(req, res) {
 
 };
 
-	exports.update_answer = function(req, res) {
-		Answer.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, question) {
+exports.read_answer = function(req, res) {
+	Answer.findById({_id: req.params.id}, function(err, answer) {
+		if (err)
+			res.send(err);
+		res.json(answer);
+	});
+};
+
+exports.update_answer = function(req, res) {
+		Answer.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, answer) {
 			if (err)
 				res.send(err);
-			res.json(question);
+			res.json(answer);
 		});
-	};
+};
 
 exports.delete_answers_by_question_id = function(req, res) {
 	Answer.deleteMany({idQuestion: req.params.question}, function(err, result) {

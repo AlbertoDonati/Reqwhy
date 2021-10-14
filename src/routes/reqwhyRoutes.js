@@ -24,8 +24,8 @@ module.exports = function(app) {
 		.post(answersController.create_answer);
 
 	app.route('/api/answers/:id')
+		.get(answersController.read_answer)
 		.put(answersController.update_answer);
-
 
 	/*ROBA AGGIUNTA MA BOH*/
 

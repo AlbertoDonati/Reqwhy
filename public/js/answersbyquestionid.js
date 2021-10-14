@@ -28,9 +28,8 @@ const AnswersByQuestionId = {
 					<th scope="col">Text</th>
 					<th scope="col">User</th>
 					<th scope="col">Date</th>
+					<th scope="col">Bests</th>
 					<th scope="col">Tops</th>
-					<th scope="col">Loves</th>
-					<th scope="col">Bests</th>		
 					<th scopt="col">Actions</th>
 				</tr>
 			</thead>
@@ -40,14 +39,19 @@ const AnswersByQuestionId = {
 				<td>{{answer.textAnswer | limit(30)}}</td>
 				<td>{{answer.userIdAnswer}}</td>
 				<td>{{answer.dateAnswer | limit(10)}}</td>
-				<td>{{answer.tops}}</td>
-				<td>{{answer.loves}}</td>
 				<td>{{answer.bests}}</td>
 				<td>
-					<button @click.prevent="updateAnswer(answer._id,index,answer)" type="button" class="btn btnsm">
-						<i class="fas fa-angle-double-up"></i>
-					</button>
+				<th scope="col" v-for="(top,indexTop) in answer.tops" :key="top._id">{{top}}</th>
 				</td>
+				<td v-if="!controlMyAns(index)">
+				<button @click.prevent="upAnswer(answer._id,index,answer)" type="button" class="btn btnsm">
+						<i class="fas fa-angle-double-up"></i>
+				</button>
+				</td>
+				<td v-if="controlMyAns(index)">
+				<button @click.prevent="downAnswer(answer._id,index,answer)" type="button" class="btn btnsm">
+						<i class="fas fa-angle-double-down"></i>
+				</button>
 			</tr>
 			</tbody>
 		</table>
@@ -82,7 +86,7 @@ const AnswersByQuestionId = {
 	data: function (){
 		return {
 			answers: [],
-			questionReaded: String,
+			questionReaded: "",
 			questionId: this.$route.params.question,
 			adding: false,
 			new_answer: {
@@ -90,20 +94,22 @@ const AnswersByQuestionId = {
 				textAnswer: "",
 				userIdAnswer: "",
 				dateAnswer: new Date(Date.now()).toISOString(),
-				tops: "",
-				loves: "",
 				bests: "",
+				tops: "",
 			},
 			new_mod_answer: {
 				idQuestion: "",
 				textAnswer: "",
 				userIdAnswer: "",
 				dateAnswer: "",
-				tops: "",
-				loves: "",
 				bests: "",
+				tops: "",
 			},
 			userId : "",
+			isAlreadyInTops: false,
+			answerReaded: "", /*non serve answerreader*/
+			topsOfAnswer: [],
+			indeOfTop: -1,
 		}
 	},
 
@@ -113,7 +119,10 @@ const AnswersByQuestionId = {
 				.then(response => {
 					this.answers = response.data;
 				})
-			console.log("lettura answers eseguita");
+				.catch(error => {
+					console.log(error);
+				})
+			console.log("answers readed");
 		},
 
 		readQuestion(question_id){
@@ -124,9 +133,19 @@ const AnswersByQuestionId = {
 				.catch(error => {
 					console.log(error);
 				})
-			console.log("lettura question eseguita");
+			console.log("question readed");
 		},
-
+		/* questo read answer non serve */
+		readAnswer(answer_id){
+			axios.get("http://localhost:3000/api/answers/"+answer_id)
+				.then(response => {
+					this.answerReaded = response.data;
+				})
+				.catch(error => {
+					console.log(error);
+				})
+			console.log("answer readed");
+		},
 		showAddAnswer(){
 			this.adding = true;
 		},
@@ -141,21 +160,47 @@ const AnswersByQuestionId = {
 				})
 			console.log("riposta inserita");
 		},
-		updateAnswer(answer_id,idx,newanswer){
+		upAnswer(answer_id,idx,newanswer){
 				this.new_mod_answer.idQuestion =  newanswer.idQuestion;
 				this.new_mod_answer.textAnswer =  newanswer.textAnswer;
 				this.new_mod_answer.userIdAnswer =  newanswer.userIdAnswer;
 				this.new_mod_answer.dateAnswer =  newanswer.dateAnswer;
-			    this.new_mod_answer.tops =  this.userId;
-				this.new_mod_answer.loves = newanswer.lovesAnswer;
+				newanswer.tops.push(this.userId);
+				this.new_mod_answer.tops = newanswer.tops;
 				this.new_mod_answer.bests = newanswer.bestsAnswer;
 
 			axios.put("http://localhost:3000/api/answers/"+answer_id,this.new_mod_answer)
 				.then(response => {
 					this.answers.splice(idx,1,response.data);
-				})
-			console.log("riposta aggiornata");
+				});
+			console.log("answer up");
 		},
+		downAnswer(answer_id,idx,newanswer){
+			this.new_mod_answer.idQuestion =  newanswer.idQuestion;
+			this.new_mod_answer.textAnswer =  newanswer.textAnswer;
+			this.new_mod_answer.userIdAnswer =  newanswer.userIdAnswer;
+			this.new_mod_answer.dateAnswer =  newanswer.dateAnswer;
+			this.topsArray = newanswer.tops;
+			this.indexTop = this.topsArray.indexOf(this.userId,0);
+			newanswer.tops.splice(this.indexTop,1);
+			this.new_mod_answer.tops = newanswer.tops;
+			this.new_mod_answer.loves = newanswer.lovesAnswer;
+			this.new_mod_answer.bests = newanswer.bestsAnswer;
+
+			axios.put("http://localhost:3000/api/answers/"+answer_id,this.new_mod_answer)
+				.then(response => {
+					this.answers.splice(idx,1,response.data);
+				})
+		},
+		controlMyAns(idx){
+			this.topsArray = this.answers.at(idx).tops;
+			if(this.topsArray.indexOf(this.userId,0) === -1){
+				return false;
+			} else {
+				return true;
+			}
+		},
+
 		isSetted(){
 			if((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")){
 				console.log("no user logged");

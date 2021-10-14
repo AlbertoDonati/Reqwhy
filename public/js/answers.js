@@ -11,9 +11,8 @@ const Answers = {
 					<th scope="col">Text</th>
 					<th scope="col">User</th>
 					<th scope="col">Date</th>
-					<th scope="col">Tops</th>
-					<th scope="col">Loves</th>
-					<th scope="col">Bests</th>		
+					<th scope="col">Bests</th>	
+					<th scope="col">Tops</th>	
 				</tr>
 			</thead>
 			<tbody>
@@ -22,9 +21,8 @@ const Answers = {
 				<td>{{answer.textAnswer | limit(30)}}</td>
 				<td>{{answer.userIdAnswer}}</td>
 				<td>{{answer.dateAnswer | limit(10)}}</td>
-				<td>{{answer.tops}}</td>
-				<td>{{answer.loves}}</td>
 				<td>{{answer.bests}}</td>
+				<td>{{answer.tops}}</td>
 			</tr>
 			</tbody>
 		</table>
