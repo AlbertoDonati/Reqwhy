@@ -11,6 +11,8 @@ const AnswersByQuestionId = {
     	<h5 class="card-title">{{questionReaded.descriptionQuestion}}</h5>
     	<p class="card-text"><small class="text-muted">Posted on {{questionReaded.dateQuestion | limit(10)}} by {{questionReaded.userIdQuestion}}</small></p>
     	<p class="card-text"></p>
+		<a href="#" class="btn btn-primary">Mi piacque</a>
+		<-- fare una conta qualcosa boh non lo so -->
 		</div>
 	</div>
 	
@@ -37,11 +39,11 @@ const AnswersByQuestionId = {
 			 			<tr v-if="!isAuth()">
 			 			<i class="fas fa-slash"></i>
 			 			</tr>
-			 			<tr v-else="isAuth">
+			 			<tr v-else>
 			 			<button @click.prevent="setBestByUser(answer._id)" type="button" class="btn btnsm"><i class="fas fa-kiss"></i></button>
-						</td>
+						</tr>
 				</td>
-				<td v-else="isTheBestAnswer(answer._id)">
+				<td v-else>
 				<i class="fas fa-hand-holding-heart"></i>
 				</td>
 			
@@ -114,7 +116,6 @@ const AnswersByQuestionId = {
 			topsOfAnswer: [],
 			indexOfTop: -1,
 			userReaded: "",
-		//	isATeacher: false
 		}
 	},
 
@@ -209,7 +210,7 @@ const AnswersByQuestionId = {
 			axios.put("http://localhost:3000/api/questions/"+this.questionId,this.questionReaded)
 				.then(response => {
 					console.log("best answer setted");
-					this.$forceUpdate();
+				    this.$forceUpdate();
 				});
 		},
 		isTheBestAnswer(answer_id){
