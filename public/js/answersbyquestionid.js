@@ -2,61 +2,67 @@ const AnswersByQuestionId = {
 	template: `
 <div id="answers-component" class="container-fluid">
 	<h1>Answers Component</h1>
-
+	
 	<div class="card">
   		<div class="card-header">
-   		 {{questionReaded.titleQuestion}}
+  		{{questionReaded.titleQuestion}}
   		</div>
   		<div class="card-body">
     	<h5 class="card-title">{{questionReaded.descriptionQuestion}}</h5>
     	<p class="card-text"><small class="text-muted">Posted on {{questionReaded.dateQuestion | limit(10)}} by {{questionReaded.userIdQuestion}}</small></p>
     	<p class="card-text"></p>
-    	<a href="#" class="btn btn-primary">Go somewhere</a>
 		</div>
 	</div>
 	
-	<div>
- 	<p>Answers</p>
-	</div>
-	
 	<div class="row">
-		<div class="col">
+		<tr class="col">
 		<table class="table responsive">
 			<thead class="thead-dark">
 				<tr>
-					<th scope="col">idQuestion</th>
-					<th scope="col">Text</th>
-					<th scope="col">User</th>
+					<th scope="col">Answer</th>
+					<th scope="col">By</th>
 					<th scope="col">Date</th>
-					<th scopt="col">Actions</th>
-					<th scope="col">Bests</th>
-					<th scope="col">Tops</th>
+					<th scope="col">Best</th>
+					<th scope="col">Up</th>
+					<th scope="col">Upped by</th>
 				</tr>
 			</thead>
 			<tbody>
 			<tr v-for="(answer,index) in answers" :key="answer._id">
-				<td>{{answer.idQuestion}}</td>
 				<td>{{answer.textAnswer | limit(30)}}</td>
 				<td>{{answer.userIdAnswer}}</td>
 				<td>{{answer.dateAnswer | limit(10)}}</td>
+				
+			 	<td v-if="!isTheBestAnswer(answer._id)">
+			 			<tr v-if="!isAuth()">
+			 			<i class="fas fa-slash"></i>
+			 			</tr>
+			 			<tr v-else="isAuth">
+			 			<button @click.prevent="setBestByUser(answer._id)" type="button" class="btn btnsm"><i class="fas fa-kiss"></i></button>
+						</td>
+				</td>
+				<td v-else="isTheBestAnswer(answer._id)">
+				<i class="fas fa-hand-holding-heart"></i>
+				</td>
+			
 				<td v-if="!controlMyAns(index)">
-				<button @click.prevent="upAnswer(answer._id,index,answer)" type="button" class="btn btnsm">
-						<i class="fas fa-angle-double-up"></i>
+				<button @click.prevent="upAnswer(answer._id,index,answer)" type="button" class="btn btnsm"><i class="fas fa-angle-double-up"></i>
 				</button>
 				</td>
 				<td v-if="controlMyAns(index)">
-				<button @click.prevent="downAnswer(answer._id,index,answer)" type="button" class="btn btnsm">
-						<i class="fas fa-angle-double-down"></i>
+				<button @click.prevent="downAnswer(answer._id,index,answer)" type="button" class="btn btnsm"><i class="fas fa-angle-double-down"></i>
 				</button>
 				</td>
-				<td>{{answer.bests}}</td>
+				
+				<td>
 				<p v-for="(top,indexTop) in answer.tops" :key="top._id">{{top}}</p>
+				</td>
+				
 			</tr>
 			</tbody>
 		</table>
 		</div>
-	</div>
-	
+
 	<div class="row">
 		<div class="col">
 			<button @click.prevent="showAddAnswer" type="button" class="btn btn-success"><i class="fas fa-plus"></i> Add Answer</button>
@@ -93,7 +99,6 @@ const AnswersByQuestionId = {
 				textAnswer: "",
 				userIdAnswer: "",
 				dateAnswer: new Date(Date.now()).toISOString(),
-				bests: "",
 				tops: [],
 			},
 			new_mod_answer: {
@@ -101,7 +106,6 @@ const AnswersByQuestionId = {
 				textAnswer: "",
 				userIdAnswer: "",
 				dateAnswer: "",
-				bests: "",
 				tops: [],
 			},
 			userId : "",
@@ -109,6 +113,8 @@ const AnswersByQuestionId = {
 			answerReaded: "", /*non serve answerreader*/
 			topsOfAnswer: [],
 			indexOfTop: -1,
+			userReaded: "",
+		//	isATeacher: false
 		}
 	},
 
@@ -166,7 +172,6 @@ const AnswersByQuestionId = {
 				this.new_mod_answer.dateAnswer =  newanswer.dateAnswer;
 				newanswer.tops.push(this.userId);
 				this.new_mod_answer.tops = newanswer.tops;
-				this.new_mod_answer.bests = newanswer.bestsAnswer;
 
 			axios.put("http://localhost:3000/api/answers/"+answer_id,this.new_mod_answer)
 				.then(response => {
@@ -184,7 +189,6 @@ const AnswersByQuestionId = {
 			newanswer.tops.splice(this.indexOfTop,1);
 			this.new_mod_answer.tops = newanswer.tops;
 			this.new_mod_answer.loves = newanswer.lovesAnswer;
-			this.new_mod_answer.bests = newanswer.bestsAnswer;
 
 			axios.put("http://localhost:3000/api/answers/"+answer_id,this.new_mod_answer)
 				.then(response => {
@@ -199,6 +203,34 @@ const AnswersByQuestionId = {
 			} else {
 				return true;
 			}
+		},
+		setBestByUser(answer_id){
+			this.questionReaded.bestByUser = answer_id;
+			axios.put("http://localhost:3000/api/questions/"+this.questionId,this.questionReaded)
+				.then(response => {
+					console.log("best answer setted");
+					this.$forceUpdate();
+				});
+		},
+		isTheBestAnswer(answer_id){
+			return this.questionReaded.bestByUser === answer_id;
+		},
+		isAuth(){
+			if((this.userReaded.isTeacher === true) || (this.questionReaded.userIdQuestion === this.userId)){
+				return true;
+			} else {
+				return false;
+			}
+		},
+		readUser(username){
+			axios.get("http://localhost:3000/api/typeofuser/"+username)
+				.then(response => {
+					this.userReaded = response.data;
+				})
+				.catch(error => {
+					console.log(error);
+				})
+			console.log("user readed");
 		},
 		isSetted(){
 			if((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")){
@@ -222,6 +254,8 @@ const AnswersByQuestionId = {
 			this.new_answer.idQuestion = this.questionId;
 			this.readQuestion(this.questionId);
 			this.listAnswersByQuestionId(this.questionId);
+			this.readUser(this.userId);
+
 		}
 	},
 

@@ -14,6 +14,17 @@ exports.create_user = function(req, res) {
     });
 };
 
+exports.read_user = function(req, res) {
+    User.findOne({username: req.params.username}, function (err, user) {
+        if (err)
+            res.status(404).send({
+                description: 'user not found'
+            });
+        else {
+            res.json(user);
+        }
+    });
+};
 
 exports.verify_user = function(req, res) {
   //  var new_user = new User(req.body);

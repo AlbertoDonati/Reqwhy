@@ -5,7 +5,6 @@ module.exports = function(mongoose) {
         textAnswer: String,
         userIdAnswer: String,
         dateAnswer: Date,
-        bests: String,
         tops: [String],
     });
     return mongoose.model('answermodel', AnswerSchema, 'Answers');
