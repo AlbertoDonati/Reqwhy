@@ -28,9 +28,9 @@ const AnswersByQuestionId = {
 					<th scope="col">Text</th>
 					<th scope="col">User</th>
 					<th scope="col">Date</th>
+					<th scopt="col">Actions</th>
 					<th scope="col">Bests</th>
 					<th scope="col">Tops</th>
-					<th scopt="col">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -39,10 +39,6 @@ const AnswersByQuestionId = {
 				<td>{{answer.textAnswer | limit(30)}}</td>
 				<td>{{answer.userIdAnswer}}</td>
 				<td>{{answer.dateAnswer | limit(10)}}</td>
-				<td>{{answer.bests}}</td>
-				<td>
-				<th scope="col" v-for="(top,indexTop) in answer.tops" :key="top._id">{{top}}</th>
-				</td>
 				<td v-if="!controlMyAns(index)">
 				<button @click.prevent="upAnswer(answer._id,index,answer)" type="button" class="btn btnsm">
 						<i class="fas fa-angle-double-up"></i>
@@ -52,6 +48,9 @@ const AnswersByQuestionId = {
 				<button @click.prevent="downAnswer(answer._id,index,answer)" type="button" class="btn btnsm">
 						<i class="fas fa-angle-double-down"></i>
 				</button>
+				</td>
+				<td>{{answer.bests}}</td>
+				<p v-for="(top,indexTop) in answer.tops" :key="top._id">{{top}}</p>
 			</tr>
 			</tbody>
 		</table>
@@ -95,7 +94,7 @@ const AnswersByQuestionId = {
 				userIdAnswer: "",
 				dateAnswer: new Date(Date.now()).toISOString(),
 				bests: "",
-				tops: "",
+				tops: [],
 			},
 			new_mod_answer: {
 				idQuestion: "",
@@ -103,13 +102,13 @@ const AnswersByQuestionId = {
 				userIdAnswer: "",
 				dateAnswer: "",
 				bests: "",
-				tops: "",
+				tops: [],
 			},
 			userId : "",
 			isAlreadyInTops: false,
 			answerReaded: "", /*non serve answerreader*/
 			topsOfAnswer: [],
-			indeOfTop: -1,
+			indexOfTop: -1,
 		}
 	},
 
@@ -181,8 +180,8 @@ const AnswersByQuestionId = {
 			this.new_mod_answer.userIdAnswer =  newanswer.userIdAnswer;
 			this.new_mod_answer.dateAnswer =  newanswer.dateAnswer;
 			this.topsArray = newanswer.tops;
-			this.indexTop = this.topsArray.indexOf(this.userId,0);
-			newanswer.tops.splice(this.indexTop,1);
+			this.indexOfTop = this.topsArray.indexOf(this.userId,0);
+			newanswer.tops.splice(this.indexOfTop,1);
 			this.new_mod_answer.tops = newanswer.tops;
 			this.new_mod_answer.loves = newanswer.lovesAnswer;
 			this.new_mod_answer.bests = newanswer.bestsAnswer;
@@ -191,6 +190,7 @@ const AnswersByQuestionId = {
 				.then(response => {
 					this.answers.splice(idx,1,response.data);
 				})
+			console.log("answer down");
 		},
 		controlMyAns(idx){
 			this.topsArray = this.answers.at(idx).tops;
@@ -200,7 +200,6 @@ const AnswersByQuestionId = {
 				return true;
 			}
 		},
-
 		isSetted(){
 			if((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")){
 				console.log("no user logged");
@@ -211,7 +210,6 @@ const AnswersByQuestionId = {
 				return true;
 			}
 		},
-
 	},
 
 	mounted() {
