@@ -109,7 +109,7 @@ const CrudQuestions = {
 
   methods: {
     listQuestions(){
-      axios.get("http://localhost:3000/api/questions")
+      axios.get("./api/questions")
         .then( response => {
           this.questions = response.data;
         })
@@ -121,14 +121,14 @@ const CrudQuestions = {
       this.adding = false;
     },
     addQuestion(){
-      axios.post("http://localhost:3000/api/questions",this.new_question)
+      axios.post("./api/questions",this.new_question)
         .then(response => {
           this.questions.push(response.data);
           this.hideAddQuestion();
         })
     },
     deleteQuestion(question_id,idx){
-      axios.delete("http://localhost:3000/api/answersbyquestionid/"+question_id)
+      axios.delete("./api/answersbyquestionid/"+question_id)
           .then(response => {
             console.log("Deleted answers related to question " + question_id)
           })
@@ -136,7 +136,7 @@ const CrudQuestions = {
             console.log(error);
           })
 
-      axios.delete("http://localhost:3000/api/questions/"+question_id)
+      axios.delete("./api/questions/"+question_id)
         .then(response => {
           this.questions.splice(idx,1);
           console.log("Deleted question " + question_id)
