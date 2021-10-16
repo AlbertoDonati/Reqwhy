@@ -121,7 +121,6 @@ const CrudQuestions = {
       questionReaded: "",
     }
   },
-
   methods: {
     listQuestions(){
       axios.get("/api/questions")

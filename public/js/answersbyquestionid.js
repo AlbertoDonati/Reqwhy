@@ -64,7 +64,6 @@ const AnswersByQuestionId = {
 			</tbody>
 		</table>
 		</div>
-
 	<div class="row">
 		<div class="col">
 			<button @click.prevent="showAddAnswer" type="button" class="btn btn-success"><i class="fas fa-plus"></i> Add Answer</button>
@@ -111,9 +110,6 @@ const AnswersByQuestionId = {
 				tops: [],
 			},
 			userId : "",
-		//	isAlreadyInTops: false,
-		//	answerReaded: "", /*non serve answerreader*/
-			topsArray: [],
 			indexOfTop: -1,
 			userReaded: "",
 		}
@@ -158,12 +154,12 @@ const AnswersByQuestionId = {
 			console.log("riposta inserita");
 		},
 		upAnswer(answer_id,idx,newanswer){
-				this.new_mod_answer.idQuestion =  newanswer.idQuestion;
-				this.new_mod_answer.textAnswer =  newanswer.textAnswer;
-				this.new_mod_answer.userIdAnswer =  newanswer.userIdAnswer;
-				this.new_mod_answer.dateAnswer =  newanswer.dateAnswer;
-				newanswer.tops.push(this.userId);
-				this.new_mod_answer.tops = newanswer.tops;
+			this.new_mod_answer.idQuestion =  newanswer.idQuestion;
+			this.new_mod_answer.textAnswer =  newanswer.textAnswer;
+			this.new_mod_answer.userIdAnswer =  newanswer.userIdAnswer;
+			this.new_mod_answer.dateAnswer =  newanswer.dateAnswer;
+			newanswer.tops.push(this.userId);
+			this.new_mod_answer.tops = newanswer.tops;
 
 			axios.put("/api/answers/"+answer_id,this.new_mod_answer)
 				.then(response => {
@@ -176,20 +172,18 @@ const AnswersByQuestionId = {
 			this.new_mod_answer.textAnswer =  newanswer.textAnswer;
 			this.new_mod_answer.userIdAnswer =  newanswer.userIdAnswer;
 			this.new_mod_answer.dateAnswer =  newanswer.dateAnswer;
-			this.topsArray = newanswer.tops;
-			this.indexOfTop = this.topsArray.indexOf(this.userId,0);
+			this.indexOfTop = newanswer.tops.indexOf(this.userId);
 			newanswer.tops.splice(this.indexOfTop,1);
 			this.new_mod_answer.tops = newanswer.tops;
 
 			axios.put("/api/answers/"+answer_id,this.new_mod_answer)
 				.then(response => {
 					this.answers.splice(idx,1,response.data);
-				})
+				});
 			console.log("answer down");
 		},
 		controlMyAns(idx){
-			this.topsArray = this.answers.at(idx).tops;
-			if(this.topsArray.indexOf(this.userId,0) === -1){
+			if(this.answers.at(idx).tops.indexOf(this.userId) === -1){
 				return false;
 			} else {
 				return true;
@@ -200,8 +194,8 @@ const AnswersByQuestionId = {
 			axios.put("/api/questions/"+this.questionId,this.questionReaded)
 				.then(response => {
 					console.log("best answer setted");
-				    this.$forceUpdate();
-				})
+					this.$forceUpdate();
+				});
 		},
 		isTheBestAnswer(answer_id){
 			return this.questionReaded.bestByUser === answer_id;
@@ -263,14 +257,16 @@ const AnswersByQuestionId = {
 
 }
 
-/* questo read answer non serve
+
+/* questo read answer non serve */
+/*
 readAnswer(answer_id){
-    axios.get("/api/answers/"+answer_id)
-        .then(response => {
-            this.answerReaded = response.data;
-        })
-        .catch(error => {
-            console.log(error);
-        })
-    console.log("answer readed");
-},*/
+	axios.get("/api/answers/"+answer_id)
+		.then(response => {
+			this.answerReaded = response.data;
+		})
+		.catch(error => {
+			console.log(error);
+		})
+	console.log("answer readed");
+}, */
