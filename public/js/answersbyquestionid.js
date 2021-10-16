@@ -80,10 +80,10 @@ const AnswersByQuestionId = {
 				</div>
 				<div class="form-group">
 					<label>Date {{new_answer.dateAnswer | limit(10)}} </label>
-				</div>
+				</div> 
 			</form>
-				<button @click.prevent="addAnswer" type="submit" class="btn btn-primary">Submit</button>
-				<button @click.prevent="hideAddAnswer" type="cancel" class="btn btn-danger">Cancel</button>
+				<button @click.prevent="addAnswer" :disabled="!isFilled" type="submit" class="btn btn-primary">Submit</button>
+				<button @click.prevent="hideAddAndResetAnswer" type="cancel" class="btn btn-danger">Cancel</button>
 		</div>
 	</div>
 	
@@ -155,14 +155,15 @@ const AnswersByQuestionId = {
 		showAddAnswer(){
 			this.adding = true;
 		},
-		hideAddAnswer(){
+		hideAddAndResetAnswer(){
 			this.adding = false;
+			this.new_answer.textAnswer = "";
 		},
 		addAnswer(){
 			axios.post("/api/answers",this.new_answer)
 				.then(response => {
 					this.answers.push(response.data);
-					this.hideAddAnswer();
+					this.hideAddAndResetAnswer();
 				})
 			console.log("riposta inserita");
 		},
@@ -259,7 +260,11 @@ const AnswersByQuestionId = {
 
 		}
 	},
-
+	computed: {
+		isFilled() {
+			return this.new_answer.textAnswer !== "";
+		}
+	},
 	filters: {
 		limit(text,length){
 			if(text==null) return ""

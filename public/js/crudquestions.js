@@ -25,37 +25,38 @@ const CrudQuestions = {
 				  -->
 				</div>
 				<div class="form-group">
-				<label>Area</label>
-				<div class="form-check">
-        <input class="form-check-input" type="radio" value="IT" v-model="new_question.area" id="radioBtn">
-        <label class="form-check-label" for="radioBtn" >IT</label>
-        </div>
-        <div class="form-check">
-        <input class="form-check-input" type="radio" value="MATH" v-model="new_question.area" id="radioMATH">
-        <label class="form-check-label" for="radioBtn" >MATH</label>
-        </div>
-        <div class="form-check">
-        <input class="form-check-input" type="radio" value="SCIENCE" v-model="new_question.area" id="radioSCIENCE">
-        <label class="form-check-label" for="radioBtn" >SCIENCE</label>
-        </div>
-        <div class="form-check">
-        <input class="form-check-input" type="radio" value="HISTORY" v-model="new_question.area" id="radioHISTORY">
-        <label class="form-check-label" for="radioBtn" >HISTORY</label>
-        </div>
-        <div class="form-check">
-        <input class="form-check-input" type="radio" value="ART" v-model="new_question.area" id="radioART">
-        <label class="form-check-label" for="radioBtn" >ART</label>
-        </div>
-        <div class="form-check">
-        <input class="form-check-input" type="radio" value="OTHER" v-model="new_question.area" id="radioOTHER">
-        <label class="form-check-label" for="radioBtn">OTHER</label>
-        </div>
-        </div>
-			</form>
-				<button @click.prevent="addQuestion" type="submit" class="btn btn-primary">Submit</button>
-				<button @click.prevent="hideAddQuestion" type="cancel" class="btn btn-danger">Cancel</button>
-		</div>
-	</div>
+				 
+				 <label>Area</label>
+			     <div class="form-check">
+                 <input class="form-check-input" type="radio" value="IT" v-model="new_question.area" id="radioBtn">
+                 <label class="form-check-label" for="radioBtn" >IT</label>
+                 </div>
+                 <div class="form-check">
+                 <input class="form-check-input" type="radio" value="MATH" v-model="new_question.area" id="radioMATH">
+                 <label class="form-check-label" for="radioBtn" >MATH</label>
+                 </div>
+                 <div class="form-check">
+                 <input class="form-check-input" type="radio" value="SCIENCE" v-model="new_question.area" id="radioSCIENCE">
+                 <label class="form-check-label" for="radioBtn" >SCIENCE</label>
+                 </div>
+                 <div class="form-check">
+                 <input class="form-check-input" type="radio" value="HISTORY" v-model="new_question.area" id="radioHISTORY">
+                 <label class="form-check-label" for="radioBtn" >HISTORY</label>
+                 </div>
+                 <div class="form-check">
+                 <input class="form-check-input" type="radio" value="ART" v-model="new_question.area" id="radioART">
+                 <label class="form-check-label" for="radioBtn" >ART</label>
+                 </div>
+                 <div class="form-check">
+                 <input class="form-check-input" type="radio" value="OTHER" v-model="new_question.area" id="radioOTHER">
+                 <label class="form-check-label" for="radioBtn">OTHER</label>
+                 </div>   
+            </div>
+		</form>
+		<button @click.prevent="addQuestion" :disabled="!isFilled" type="submit" class="btn btn-primary">Submit</button>
+		<button @click.prevent="hideAddQuestion" type="cancel" class="btn btn-danger">Cancel</button>			
+	 </div>
+  </div>
 	<div class="row">
 		<div class="col">
 		<table class="table responsive">
@@ -173,7 +174,11 @@ const CrudQuestions = {
       this.listQuestions();
     }
   },
-
+  computed: {
+    isFilled() {
+        return true
+  }
+},
   filters: {
     limit(text,length){
       if(text==null) return ""
