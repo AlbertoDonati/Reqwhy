@@ -21,21 +21,21 @@ const AnswersByQuestionId = {
 		<table class="table responsive">
 			<thead class="thead-dark">
 				<tr>
-					<th scope="col">Answer</th>
-					<th scope="col">By</th>
-					<th scope="col">Date</th>
-					<th scope="col">Best</th>
-					<th scope="col">Up</th>
-					<th scope="col">Upped by</th>
+					<th style="text-align: left;" scope="col">Answer</th>
+					<th style="text-align: center;" scope="col">By</th>
+					<th style="text-align: center;" scope="col">Date</th>
+					<th style="text-align: center;" scope="col">Best</th>
+					<th style="text-align: center;" scope="col">Up</th>
+					<th style="text-align: center;" scope="col">Upped by</th>
 				</tr>
 			</thead>
 			<tbody>
 			<tr v-for="(answer,index) in answers" :key="answer._id">
-				<td>{{answer.textAnswer | limit(30)}}</td>
-				<td>{{answer.userIdAnswer}}</td>
-				<td>{{answer.dateAnswer | limit(10)}}</td>
+				<td style="text-align: left;">{{answer.textAnswer}}</td>
+				<td style="text-align: center;">{{answer.userIdAnswer}}</td>
+				<td style="text-align: center;">{{answer.dateAnswer | limit(10)}}</td>
 				
-			 	<td v-if="!isTheBestAnswer(answer._id)">
+			 	<td v-if="!isTheBestAnswer(answer._id)" style="text-align: center;">
 			 			<tr v-if="!isAuth()">
 			 			<i class="fas fa-slash"></i>
 			 			</tr>
@@ -43,20 +43,20 @@ const AnswersByQuestionId = {
 			 			<button @click.prevent="setBestByUser(answer._id)" type="button" class="btn btnsm"><i class="fas fa-kiss"></i></button>
 						</tr>
 				</td>
-				<td v-else>
+				<td v-else style="text-align: center;">
 				<i class="fas fa-hand-holding-heart"></i>
 				</td>
 			
-				<td v-if="!controlMyAns(index)">
+				<td v-if="!controlMyAns(index)" style="text-align: center;">
 				<button @click.prevent="upAnswer(answer._id,index,answer)" type="button" class="btn btnsm"><i class="fas fa-angle-double-up"></i>
 				</button>
 				</td>
-				<td v-if="controlMyAns(index)">
+				<td v-if="controlMyAns(index)" style="text-align: center;">
 				<button @click.prevent="downAnswer(answer._id,index,answer)" type="button" class="btn btnsm"><i class="fas fa-angle-double-down"></i>
 				</button>
 				</td>
 				
-				<td>
+				<td style="text-align: center;">
 				<p v-for="(top,indexTop) in answer.tops" :key="top._id">{{top}}</p>
 				</td>
 				
@@ -79,7 +79,7 @@ const AnswersByQuestionId = {
 					<textarea class="form-control" v-model="new_answer.textAnswer" id="textAnswer" placeholder="Enter text"></textarea>
 				</div>
 				<div class="form-group">
-					<label>Date {{new_answer.dateAnswer | limit(10)}} </label>
+					<label>Date {{new_answer.dateAnswer | limit(10)}}</label>
 				</div> 
 			</form>
 				<button @click.prevent="addAnswer" :disabled="!isFilled" type="submit" class="btn btn-primary">Submit</button>
@@ -154,6 +154,7 @@ const AnswersByQuestionId = {
 		},
 		showAddAnswer(){
 			this.adding = true;
+			this.new_answer.dateAnswer = new Date(Date.now()).toISOString();
 		},
 		hideAddAndResetAnswer(){
 			this.adding = false;
