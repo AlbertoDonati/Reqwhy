@@ -4,7 +4,8 @@ User = require("../models/usersModel.js")(mongoose);
 exports.create_user = function(req, res) {
     var new_user = new User(req.body);
     new_user.save(function(err, user) {
-        if (err)
+        if (err) //qui l ho messos personalizzato il 404 così da vedere se user cè già
+            //controllare che sta cosa vada bene, confromtatrea anche con gli altri controller
             res.status(404).send({
                 description: 'username already used'
             });
@@ -17,6 +18,7 @@ exports.create_user = function(req, res) {
 exports.read_user = function(req, res) {
     User.findOne({username: req.params.username}, function (err, user) {
         if (err)
+            //anche qui un modo strano e diverso di gestire l' errore. controllare
             res.status(404).send({
                 description: 'user not found'
             });
@@ -27,7 +29,49 @@ exports.read_user = function(req, res) {
 };
 
 exports.verify_user = function(req, res) {
-  //  var new_user = new User(req.body);
+    User.find({username: req.params.userId}, function(err, user) {
+        if (err)
+            res.send(err);
+        else{
+            if(user==null){
+                res.status(404).send({
+                    description: 'User not found'
+                });
+            }
+            else{
+                res.json(user);
+            }
+        }
+    });
+};
+/*
+
+
+exports.read_question = function(req, res) {
+    Question.findById({_id: req.params.id}, function(err, question) {
+        if (err)
+            res.send(err);
+        else{
+            if(question==null){
+                res.status(404).send({
+                    description: 'Question not found'
+                });
+            }
+            else{
+                res.json(question);
+            }
+        }
+    });
+};
+
+
+
+ */
+
+
+
+/*
+exports.verify_user = function(req, res) {
     User.find({username: req.params.username} && {password: req.params.password}, function (err, user) {
         if (err || typeof this.user === "undefined")
             res.status(404).send({
@@ -37,7 +81,7 @@ exports.verify_user = function(req, res) {
             res.json(this.user);
         }
     });
-};
+};*/
 
 /*
 exports.verify_user = function(req, res) {

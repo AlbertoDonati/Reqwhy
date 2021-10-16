@@ -38,8 +38,6 @@ module.exports = function(app) {
 	app.route('/api/login')
 		.post(usersController.verify_user);
 
-
-
 	/*meglio get ma get no puo avere un body accidenti*/
 
 	app.use(questionsController.show_reqwhy);

@@ -99,12 +99,26 @@ const CrudQuestions = {
       adding: false,
       new_question: {
         titleQuestion: "",
-        desriptionQuestion: "",
+        descriptionQuestion: "",
         userIdQuestion: "",
         dateQuestion: new Date(Date.now()).toISOString(),
         area: "",
+        bestByUser: "",
+        loves: [],
+      },
+      new_mod_question: {
+        titleQuestion: "",
+        descriptionQuestion: "",
+        userIdQuestion: "",
+        dateQuestion: "",
+        area: "",
+        bestByUser: "",
+        loves: [],
       },
       userId: "",
+      lovesArray: [],
+      indexOfLove: -1,
+      questionReaded: "",
     }
   },
 
@@ -192,3 +206,62 @@ const CrudQuestions = {
 
 }
 
+/*
+
+loveQuestion(question_id,idx,newquestion){
+    this.new_mod_question.titleQuestion =  newquestion.titleQuestion;
+    this.new_mod_question.descriptionQuestion =  newquestion.descriptionQuestion;
+    this.new_mod_question.userIdQuestion =  newquestion.userIdQuestion;
+    this.new_mod_question.dateQuestion =  newquestion.dateQuestion;
+    this.new_mod_question.area =  newquestion.area;
+    this.new_mod_question.bestByUser =  newquestion.bestByUser;
+    newquestion.loves.push(this.userId);
+    this.new_mod_question.loves = newquestion.loves;
+
+    axios.put("/api/questions/"+question_id,this.new_mod_question)
+        .then(response => {
+            this.questions.splice(idx,1,response.data);
+        })
+    console.log("question love");
+},
+notLoveQuestion(question_id){
+    this.new_mod_question.titleQuestion =  newquestion.titleQuestion;
+    this.new_mod_question.descriptionQuestion =  newquestion.descriptionQuestion;
+    this.new_mod_question.userIdQuestion =  newquestion.userIdQuestion;
+    this.new_mod_question.dateQuestion =  newquestion.dateQuestion;
+    this.new_mod_question.area =  newquestion.area;
+    this.new_mod_question.bestByUser =  newquestion.bestByUser;
+    this.lovesArray = newquestion.loves;
+    this.indexOfLove = this.lovesArray.indexOf(this.userId,0);
+    newquestion.loves.splice(this.indexOfLove,1);
+    this.new_mod_question.loves = newquestion.loves;
+
+    axios.put("/api/questions/"+question_id,this.new_mod_question)
+        .then(response => {
+            this.questions.splice(idx,1,response.data);
+        })
+    console.log("question not love");
+},
+controlMyQuest(idx){
+    this.lovesArray = this.questions.at(idx).loves;
+    if(this.lovesArray.indexOf(this.userId,0) === -1){
+        return false;
+    } else {
+        return true;
+    }
+},*/
+
+/*
+   <!--
+				    <tr v-if="!controlMyQuest(index)">
+                        <button @click.prevent="loveQuestion(question._id,index,question)" type="button" class="btn btnsm">
+                        <i class="fas fa-grin-hearts"></i>
+                    </button>
+</tr>
+<tr v-if="controlMyQuest(index)">
+    <button @click.prevent="notLoveQuestion(question._id,index,question)" type="button" class="btn btnsm">
+    <i class="far fa-grin-hearts"></i>
+</button>
+</tr>
+-->
+ */

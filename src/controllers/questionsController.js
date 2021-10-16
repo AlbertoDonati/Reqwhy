@@ -9,7 +9,7 @@ exports.list_questions = function(req, res) {
 	Question.find({}, (err, question) => {
 		if (err)
 			res.send(err);
-			res.json(question);
+		res.json(question);
 	});
 };
 
@@ -17,7 +17,7 @@ exports.list_questions_by_area = function(req, res) {
 	Question.find({area: req.params.area}, function (err, question) {
 		if (err)
 			res.send(err);
-			res.json(question);
+		res.json(question);
 	});
 };
 
@@ -33,16 +33,34 @@ exports.create_question = function(req, res) {
 exports.read_question = function(req, res) {
 	Question.findById({_id: req.params.id}, function(err, question) {
 		if (err)
-		res.send(err);
-		res.json(question);
+			res.send(err);
+		else{
+			if(question==null){
+				res.status(404).send({
+					description: 'Question not found'
+				});
+			}
+			else{
+				res.json(question);
+			}
+		}
 	});
 };
 
 exports.update_question = function(req, res) {
 	Question.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, question) {
 		if (err)
-		res.send(err);
-		res.json(question);
+			res.send(err);
+		else{
+			if(question==null){
+				res.status(404).send({
+					description: 'Question not found'
+				});
+			}
+			else{
+				res.json(question);
+			}
+		}
 	});
 };
 
@@ -53,7 +71,7 @@ exports.delete_question = function(req, res) {
 		else{
 			if(result.deletedCount==0){
 				res.status(404).send({
-					description: 'Question not found'
+					description: 'Question not deleted'
 				});
 			}
 			else{
@@ -62,6 +80,15 @@ exports.delete_question = function(req, res) {
 		}
 	});
 };
+
+
+
+
+
+
+
+
+
 
 /*
 

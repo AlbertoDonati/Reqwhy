@@ -111,9 +111,9 @@ const AnswersByQuestionId = {
 				tops: [],
 			},
 			userId : "",
-			isAlreadyInTops: false,
-			answerReaded: "", /*non serve answerreader*/
-			topsOfAnswer: [],
+		//	isAlreadyInTops: false,
+		//	answerReaded: "", /*non serve answerreader*/
+			topsArray: [],
 			indexOfTop: -1,
 			userReaded: "",
 		}
@@ -140,17 +140,6 @@ const AnswersByQuestionId = {
 					console.log(error);
 				})
 			console.log("question readed");
-		},
-		/* questo read answer non serve */
-		readAnswer(answer_id){
-			axios.get("/api/answers/"+answer_id)
-				.then(response => {
-					this.answerReaded = response.data;
-				})
-				.catch(error => {
-					console.log(error);
-				})
-			console.log("answer readed");
 		},
 		showAddAnswer(){
 			this.adding = true;
@@ -191,7 +180,6 @@ const AnswersByQuestionId = {
 			this.indexOfTop = this.topsArray.indexOf(this.userId,0);
 			newanswer.tops.splice(this.indexOfTop,1);
 			this.new_mod_answer.tops = newanswer.tops;
-			this.new_mod_answer.loves = newanswer.lovesAnswer;
 
 			axios.put("/api/answers/"+answer_id,this.new_mod_answer)
 				.then(response => {
@@ -213,7 +201,7 @@ const AnswersByQuestionId = {
 				.then(response => {
 					console.log("best answer setted");
 				    this.$forceUpdate();
-				});
+				})
 		},
 		isTheBestAnswer(answer_id){
 			return this.questionReaded.bestByUser === answer_id;
@@ -274,3 +262,15 @@ const AnswersByQuestionId = {
 	},
 
 }
+
+/* questo read answer non serve
+readAnswer(answer_id){
+    axios.get("/api/answers/"+answer_id)
+        .then(response => {
+            this.answerReaded = response.data;
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    console.log("answer readed");
+},*/
