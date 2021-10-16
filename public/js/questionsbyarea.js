@@ -37,7 +37,7 @@ const QuestionsByArea = {
 
 	methods: {
 		listQuestionsByArea(area) {
-			axios.get("http://localhost:3000/api/questionsbyarea/" + area)
+			axios.get("/api/questionsbyarea/" + area)
 				.then(response => {
 					this.questions = response.data;
 				})
