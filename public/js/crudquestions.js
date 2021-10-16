@@ -87,14 +87,18 @@ const CrudQuestions = {
                          <i class="fas fa-grin-hearts"></i>
                          {{question.loves.length}}
                          </button>
+                         
+                         <button v-if="!isAuth(index)" type="button" class="btn btnsm">
+                         <i class="fas fa-times"></i>
+                         </button>
+                        
+                         <button v-if="isAuth(index)" @click.prevent="deleteQuestion(question._id,index)" type="button" class="btn btnsm">
+                         <i class="fas fa-trash"></i>
+                         </button>
                        
-                    <button @click.prevent="deleteQuestion(question._id,index)" type="button" class="btn btnsm">
-					<i class="fas fa-trash"></i>
-					</button>
-					
-                    <button @click.prevent="sendIdToAnswer(question._id)" type="button" class="btn btnsm">
-					<i class="fas fa-chevron-right"></i>
-					</button>
+                          <button @click.prevent="sendIdToAnswer(question._id)" type="button" class="btn btnsm">
+					      <i class="fas fa-chevron-right"></i>
+					      </button>
                     
 				</td>
 			</tr>
@@ -217,7 +221,14 @@ const CrudQuestions = {
             return true;
           }
         },
-    isSetted(){
+      isAuth(idx) {
+        if(this.questions.at(idx).userIdQuestion === this.userId){
+            return true
+        }
+        else
+            return false
+      },
+      isSetted(){
       if((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")){
         console.log("no user logged");
         return false;
