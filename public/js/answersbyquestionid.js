@@ -257,7 +257,6 @@ const AnswersByQuestionId = {
 
 }
 
-
 /* questo read answer non serve */
 /*
 readAnswer(answer_id){

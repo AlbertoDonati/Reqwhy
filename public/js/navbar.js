@@ -32,8 +32,7 @@ const Navbar = {
             <ul class="navbar-nav">
                 <navbutton text="Questions" @clicked="onClickChild()"></navbutton>
                 <navbutton text="CrudQuestions" @clicked="onClickChild()"></navbutton>
-                <navbutton text="Answers" @clicked="onClickChild()"></navbutton>
-               
+    
                 <navbutton text="Home" @clicked="onClickChild()"></navbutton>
                 <navbutton text="Login" @clicked="onClickChild()"></navbutton>
                 <navbutton text="SignUp" @clicked="onClickChild()"></navbutton>

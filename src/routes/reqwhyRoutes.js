@@ -20,7 +20,6 @@ module.exports = function(app) {
 		.delete(answersController.delete_answers_by_question_id);
 
 	app.route('/api/answers')
-		.get(answersController.list_answers)
 		.post(answersController.create_answer);
 
 	app.route('/api/answers/:id')

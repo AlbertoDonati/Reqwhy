@@ -54,7 +54,7 @@ const CrudQuestions = {
             </div>
 		</form>
 		<button @click.prevent="addQuestion" :disabled="!isFilled" type="submit" class="btn btn-primary">Submit</button>
-		<button @click.prevent="hideAddQuestion" type="cancel" class="btn btn-danger">Cancel</button>			
+		<button @click.prevent="hideAddAndResetQuestion" type="cancel" class="btn btn-danger">Cancel</button>			
 	 </div>
   </div>
 	<div class="row">
@@ -116,9 +116,8 @@ const CrudQuestions = {
         loves: [],
       },
       userId: "",
-      lovesArray: [],
       indexOfLove: -1,
-      questionReaded: "",
+    //  questionReaded: "",
     }
   },
   methods: {
@@ -130,15 +129,18 @@ const CrudQuestions = {
     },
     showAddQuestion(){
       this.adding = true;
+      this.new_question.dateQuestion = new Date(Date.now()).toISOString();
     },
-    hideAddQuestion(){
+    hideAddAndResetQuestion(){
       this.adding = false;
+      this.new_question.titleQuestion = "";
+      this.new_question.descriptionQuestion = "";
     },
     addQuestion(){
       axios.post("/api/questions",this.new_question)
         .then(response => {
           this.questions.push(response.data);
-          this.hideAddQuestion();
+          this.hideAddAndResetQuestion()
         })
     },
     deleteQuestion(question_id,idx){
@@ -164,6 +166,46 @@ const CrudQuestions = {
       console.log("apro le risposte della domanda " + question_id)
       router.push({ path: `/answersbyid/${question_id}` })
     },
+    loveQuestion(question_id,idx,newquestion){
+          this.new_mod_question.titleQuestion =  newquestion.titleQuestion;
+          this.new_mod_question.descriptionQuestion =  newquestion.descriptionQuestion;
+          this.new_mod_question.userIdQuestion =  newquestion.userIdQuestion;
+          this.new_mod_question.dateQuestion =  newquestion.dateQuestion;
+          this.new_mod_question.area =  newquestion.area;
+          this.new_mod_question.bestByUser =  newquestion.bestByUser;
+          newquestion.loves.push(this.userId);
+          this.new_mod_question.loves = newquestion.loves;
+
+          axios.put("/api/questions/"+question_id,this.new_mod_question)
+              .then(response => {
+                this.questions.splice(idx,1,response.data);
+              })
+          console.log("question love");
+        },
+        notLoveQuestion(question_id,idx,newquestion){
+          this.new_mod_question.titleQuestion =  newquestion.titleQuestion;
+          this.new_mod_question.descriptionQuestion =  newquestion.descriptionQuestion;
+          this.new_mod_question.userIdQuestion =  newquestion.userIdQuestion;
+          this.new_mod_question.dateQuestion =  newquestion.dateQuestion;
+          this.new_mod_question.area =  newquestion.area;
+          this.new_mod_question.bestByUser =  newquestion.bestByUser;
+          this.indexOfLove = newquestion.loves.indexOf(this.userId);
+          newquestion.loves.splice(this.indexOfLove,1);
+          this.new_mod_question.loves = newquestion.loves;
+
+          axios.put("/api/questions/"+question_id,this.new_mod_question)
+              .then(response => {
+                this.questions.splice(idx,1,response.data);
+              })
+          console.log("question not love");
+        },
+        controlMyQuest(idx){
+          if(this.questions.at(idx).loves.indexOf(this.userId) === -1){
+            return false;
+          } else {
+            return true;
+          }
+        },
     isSetted(){
       if((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")){
         console.log("no user logged");
@@ -174,9 +216,7 @@ const CrudQuestions = {
         return true;
       }
     },
-
   },
-
   mounted() {
     this.userId = localStorage.getItem('username');
     if(!this.isSetted()){

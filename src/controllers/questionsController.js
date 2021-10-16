@@ -69,7 +69,7 @@ exports.delete_question = function(req, res) {
 		if (err)
 			res.send(err);
 		else{
-			if(result.deletedCount==0){
+			if(result.deletedCount===0){
 				res.status(404).send({
 					description: 'Question not deleted'
 				});
