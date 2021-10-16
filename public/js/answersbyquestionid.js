@@ -10,9 +10,6 @@ const AnswersByQuestionId = {
   		<div class="card-body">
     	<h5 class="card-title">{{questionReaded.descriptionQuestion}}</h5>
     	<p class="card-text"><small class="text-muted">Posted on {{questionReaded.dateQuestion | limit(10)}} by {{questionReaded.userIdQuestion}}</small></p>
-    	<p class="card-text"></p>
-		<a href="#" class="btn btn-primary">Mi piacque</a>
-		<-- fare una conta qualcosa boh non lo so -->
 		</div>
 	</div>
 	
@@ -36,23 +33,22 @@ const AnswersByQuestionId = {
 				<td style="text-align: center;">{{answer.dateAnswer | limit(10)}}</td>
 				
 			 	<td v-if="!isTheBestAnswer(answer._id)" style="text-align: center;">
-			 			<tr v-if="!isAuth()">
-			 			<i class="fas fa-slash"></i>
-			 			</tr>
-			 			<tr v-else>
-			 			<button @click.prevent="setBestByUser(answer._id)" type="button" class="btn btnsm"><i class="fas fa-kiss"></i></button>
-						</tr>
+			 		<button v-if="!isAuth()" type="button" class="btn btn-outline-light">Set as BEST</button>
+					<button v-if="isAuth()"@click.prevent="setBestByUser(answer._id)" type="button" class="btn btn-outline-success">set as BEST</button>
 				</td>
-				<td v-else style="text-align: center;">
-				<i class="fas fa-hand-holding-heart"></i>
+				
+				<td v-if="isTheBestAnswer(answer._id)" style="text-align: center;">
+				<button type="button" class="btn btn-success">THIS IS THE BEST</button>
 				</td>
 			
 				<td v-if="!controlMyAns(index)" style="text-align: center;">
 				<button @click.prevent="upAnswer(answer._id,index,answer)" type="button" class="btn btnsm"><i class="fas fa-angle-double-up"></i>
+				{{answer.tops.length}}
 				</button>
 				</td>
 				<td v-if="controlMyAns(index)" style="text-align: center;">
 				<button @click.prevent="downAnswer(answer._id,index,answer)" type="button" class="btn btnsm"><i class="fas fa-angle-double-down"></i>
+				{{answer.tops.length}}
 				</button>
 				</td>
 				
@@ -114,7 +110,6 @@ const AnswersByQuestionId = {
 			userReaded: "",
 		}
 	},
-
 	methods: {
 		listAnswersByQuestionId(question_id) {
 			axios.get("/api/answersbyquestionid/" + question_id)
@@ -228,7 +223,6 @@ const AnswersByQuestionId = {
 			}
 		},
 	},
-
 	mounted() {
 		this.userId = localStorage.getItem('username');
 		if(!this.isSetted()){
@@ -254,18 +248,4 @@ const AnswersByQuestionId = {
 			return text.substring(0, length);
 		}
 	},
-
 }
-
-/* questo read answer non serve */
-/*
-readAnswer(answer_id){
-	axios.get("/api/answers/"+answer_id)
-		.then(response => {
-			this.answerReaded = response.data;
-		})
-		.catch(error => {
-			console.log(error);
-		})
-	console.log("answer readed");
-}, */

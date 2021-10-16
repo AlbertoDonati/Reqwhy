@@ -78,12 +78,24 @@ const CrudQuestions = {
 				<td style="text-align: center;">{{question.dateQuestion | limit(10)}}</td>
 				<td style="text-align: center;">{{question.area}}</td>
 				<td style="text-align: center;">
-					<button @click.prevent="deleteQuestion(question._id,index)" type="button" class="btn btnsm">
-						<i class="fas fa-trash"></i>
+                         <button v-if="!controlMyQuest(index)" @click.prevent="loveQuestion(question._id,index,question)" type="button" class="btn btnsm">
+                         <i class="far fa-grin-hearts"></i>
+                         {{question.loves.length}}
+                         </button>
+                        
+                         <button v-if="controlMyQuest(index)" @click.prevent="notLoveQuestion(question._id,index,question)" type="button" class="btn btnsm">
+                         <i class="fas fa-grin-hearts"></i>
+                         {{question.loves.length}}
+                         </button>
+                       
+                    <button @click.prevent="deleteQuestion(question._id,index)" type="button" class="btn btnsm">
+					<i class="fas fa-trash"></i>
 					</button>
-					<button @click.prevent="sendIdToAnswer(question._id)" type="button" class="btn btnsm">
-						<i class="fas fa-chevron-right"></i>
+					
+                    <button @click.prevent="sendIdToAnswer(question._id)" type="button" class="btn btnsm">
+					<i class="fas fa-chevron-right"></i>
 					</button>
+                    
 				</td>
 			</tr>
 			</tbody>
@@ -117,7 +129,6 @@ const CrudQuestions = {
       },
       userId: "",
       indexOfLove: -1,
-    //  questionReaded: "",
     }
   },
   methods: {
@@ -242,65 +253,4 @@ const CrudQuestions = {
         }
     }
   },
-
 }
-
-/*
-
-loveQuestion(question_id,idx,newquestion){
-    this.new_mod_question.titleQuestion =  newquestion.titleQuestion;
-    this.new_mod_question.descriptionQuestion =  newquestion.descriptionQuestion;
-    this.new_mod_question.userIdQuestion =  newquestion.userIdQuestion;
-    this.new_mod_question.dateQuestion =  newquestion.dateQuestion;
-    this.new_mod_question.area =  newquestion.area;
-    this.new_mod_question.bestByUser =  newquestion.bestByUser;
-    newquestion.loves.push(this.userId);
-    this.new_mod_question.loves = newquestion.loves;
-
-    axios.put("/api/questions/"+question_id,this.new_mod_question)
-        .then(response => {
-            this.questions.splice(idx,1,response.data);
-        })
-    console.log("question love");
-},
-notLoveQuestion(question_id){
-    this.new_mod_question.titleQuestion =  newquestion.titleQuestion;
-    this.new_mod_question.descriptionQuestion =  newquestion.descriptionQuestion;
-    this.new_mod_question.userIdQuestion =  newquestion.userIdQuestion;
-    this.new_mod_question.dateQuestion =  newquestion.dateQuestion;
-    this.new_mod_question.area =  newquestion.area;
-    this.new_mod_question.bestByUser =  newquestion.bestByUser;
-    this.lovesArray = newquestion.loves;
-    this.indexOfLove = this.lovesArray.indexOf(this.userId,0);
-    newquestion.loves.splice(this.indexOfLove,1);
-    this.new_mod_question.loves = newquestion.loves;
-
-    axios.put("/api/questions/"+question_id,this.new_mod_question)
-        .then(response => {
-            this.questions.splice(idx,1,response.data);
-        })
-    console.log("question not love");
-},
-controlMyQuest(idx){
-    this.lovesArray = this.questions.at(idx).loves;
-    if(this.lovesArray.indexOf(this.userId,0) === -1){
-        return false;
-    } else {
-        return true;
-    }
-},*/
-
-/*
-   <!--
-				    <tr v-if="!controlMyQuest(index)">
-                        <button @click.prevent="loveQuestion(question._id,index,question)" type="button" class="btn btnsm">
-                        <i class="fas fa-grin-hearts"></i>
-                    </button>
-</tr>
-<tr v-if="controlMyQuest(index)">
-    <button @click.prevent="notLoveQuestion(question._id,index,question)" type="button" class="btn btnsm">
-    <i class="far fa-grin-hearts"></i>
-</button>
-</tr>
--->
- */
