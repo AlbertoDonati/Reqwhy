@@ -10,9 +10,6 @@ const AnswersByQuestionId = {
   		<div class="card-body">
     	<h5 class="card-title">{{questionReaded.descriptionQuestion}}</h5>
     	<p class="card-text"><small class="text-muted">Posted on {{questionReaded.dateQuestion | limit(10)}} by {{questionReaded.userIdQuestion}}</small></p>
-    	<p class="card-text"></p>
-		<a href="#" class="btn btn-primary">Mi piacque</a>
-		<-- fare una conta qualcosa boh non lo so -->
 		</div>
 	</div>
 	
@@ -36,23 +33,22 @@ const AnswersByQuestionId = {
 				<td style="text-align: center;">{{answer.dateAnswer | limit(10)}}</td>
 				
 			 	<td v-if="!isTheBestAnswer(answer._id)" style="text-align: center;">
-			 			<tr v-if="!isAuth()">
-			 			<i class="fas fa-slash"></i>
-			 			</tr>
-			 			<tr v-else>
-			 			<button @click.prevent="setBestByUser(answer._id)" type="button" class="btn btnsm"><i class="fas fa-kiss"></i></button>
-						</tr>
+			 		<button v-if="!isAuth()" type="button" class="btn btn-outline-light">Set as BEST</button>
+					<button v-if="isAuth()"@click.prevent="setBestByUser(answer._id)" type="button" class="btn btn-outline-success">set as BEST</button>
 				</td>
-				<td v-else style="text-align: center;">
-				<i class="fas fa-hand-holding-heart"></i>
+				
+				<td v-if="isTheBestAnswer(answer._id)" style="text-align: center;">
+				<button type="button" class="btn btn-success">THIS IS THE BEST</button>
 				</td>
 			
 				<td v-if="!controlMyAns(index)" style="text-align: center;">
 				<button @click.prevent="upAnswer(answer._id,index,answer)" type="button" class="btn btnsm"><i class="fas fa-angle-double-up"></i>
+				{{answer.tops.length}}
 				</button>
 				</td>
 				<td v-if="controlMyAns(index)" style="text-align: center;">
 				<button @click.prevent="downAnswer(answer._id,index,answer)" type="button" class="btn btnsm"><i class="fas fa-angle-double-down"></i>
+				{{answer.tops.length}}
 				</button>
 				</td>
 				
@@ -64,7 +60,6 @@ const AnswersByQuestionId = {
 			</tbody>
 		</table>
 		</div>
-
 	<div class="row">
 		<div class="col">
 			<button @click.prevent="showAddAnswer" type="button" class="btn btn-success"><i class="fas fa-plus"></i> Add Answer</button>
@@ -111,14 +106,10 @@ const AnswersByQuestionId = {
 				tops: [],
 			},
 			userId : "",
-			isAlreadyInTops: false,
-			answerReaded: "", /*non serve answerreader*/
-			topsOfAnswer: [],
 			indexOfTop: -1,
 			userReaded: "",
 		}
 	},
-
 	methods: {
 		listAnswersByQuestionId(question_id) {
 			axios.get("/api/answersbyquestionid/" + question_id)
@@ -141,17 +132,6 @@ const AnswersByQuestionId = {
 				})
 			console.log("question readed");
 		},
-		/* questo read answer non serve */
-		readAnswer(answer_id){
-			axios.get("/api/answers/"+answer_id)
-				.then(response => {
-					this.answerReaded = response.data;
-				})
-				.catch(error => {
-					console.log(error);
-				})
-			console.log("answer readed");
-		},
 		showAddAnswer(){
 			this.adding = true;
 			this.new_answer.dateAnswer = new Date(Date.now()).toISOString();
@@ -169,12 +149,12 @@ const AnswersByQuestionId = {
 			console.log("riposta inserita");
 		},
 		upAnswer(answer_id,idx,newanswer){
-				this.new_mod_answer.idQuestion =  newanswer.idQuestion;
-				this.new_mod_answer.textAnswer =  newanswer.textAnswer;
-				this.new_mod_answer.userIdAnswer =  newanswer.userIdAnswer;
-				this.new_mod_answer.dateAnswer =  newanswer.dateAnswer;
-				newanswer.tops.push(this.userId);
-				this.new_mod_answer.tops = newanswer.tops;
+			this.new_mod_answer.idQuestion =  newanswer.idQuestion;
+			this.new_mod_answer.textAnswer =  newanswer.textAnswer;
+			this.new_mod_answer.userIdAnswer =  newanswer.userIdAnswer;
+			this.new_mod_answer.dateAnswer =  newanswer.dateAnswer;
+			newanswer.tops.push(this.userId);
+			this.new_mod_answer.tops = newanswer.tops;
 
 			axios.put("/api/answers/"+answer_id,this.new_mod_answer)
 				.then(response => {
@@ -187,21 +167,18 @@ const AnswersByQuestionId = {
 			this.new_mod_answer.textAnswer =  newanswer.textAnswer;
 			this.new_mod_answer.userIdAnswer =  newanswer.userIdAnswer;
 			this.new_mod_answer.dateAnswer =  newanswer.dateAnswer;
-			this.topsArray = newanswer.tops;
-			this.indexOfTop = this.topsArray.indexOf(this.userId,0);
+			this.indexOfTop = newanswer.tops.indexOf(this.userId);
 			newanswer.tops.splice(this.indexOfTop,1);
 			this.new_mod_answer.tops = newanswer.tops;
-			this.new_mod_answer.loves = newanswer.lovesAnswer;
 
 			axios.put("/api/answers/"+answer_id,this.new_mod_answer)
 				.then(response => {
 					this.answers.splice(idx,1,response.data);
-				})
+				});
 			console.log("answer down");
 		},
 		controlMyAns(idx){
-			this.topsArray = this.answers.at(idx).tops;
-			if(this.topsArray.indexOf(this.userId,0) === -1){
+			if(this.answers.at(idx).tops.indexOf(this.userId) === -1){
 				return false;
 			} else {
 				return true;
@@ -212,7 +189,7 @@ const AnswersByQuestionId = {
 			axios.put("/api/questions/"+this.questionId,this.questionReaded)
 				.then(response => {
 					console.log("best answer setted");
-				    this.$forceUpdate();
+					this.$forceUpdate();
 				});
 		},
 		isTheBestAnswer(answer_id){
@@ -246,7 +223,6 @@ const AnswersByQuestionId = {
 			}
 		},
 	},
-
 	mounted() {
 		this.userId = localStorage.getItem('username');
 		if(!this.isSetted()){
@@ -272,5 +248,4 @@ const AnswersByQuestionId = {
 			return text.substring(0, length);
 		}
 	},
-
 }

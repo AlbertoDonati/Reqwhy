@@ -7,6 +7,7 @@ module.exports = function(mongoose) {
         dateQuestion: Date,
         area: String,
         bestByUser: String,
+        loves: [String]
     });
     return mongoose.model('questionmodel', QuestionSchema, 'Questions');
 };
