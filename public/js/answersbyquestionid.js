@@ -268,7 +268,11 @@ const AnswersByQuestionId = {
 	filters: {
 		limit(text,length){
 			if(text==null) return ""
-			return text.substring(0,length);
+			else if(text.length >= 225) {
+				return (text.substring(0, length) + "[...]");
+			} else {
+				return text.substring(0, length);
+			}
 		}
 	},
 

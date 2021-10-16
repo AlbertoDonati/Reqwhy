@@ -62,27 +62,27 @@ const CrudQuestions = {
 		<table class="table responsive">
 			<thead class="thead-dark">
 				<tr>
-					<th scope="col">Title</th>
-					<th scope="col">Description</th>
-					<th scope="col">User</th>
-					<th scope="col">Date</th>
-					<th scope="col">Area</th>
-					<th scope="col">Actions</th>
+					<th style="text-align: left;" scope="col">Title</th>
+					<th style="text-align: left;" scope="col">Description</th>
+					<th style="text-align: center;"scope="col">User</th>
+					<th style="text-align: center;"scope="col">Date</th>
+					<th style="text-align: center;"scope="col">Area</th>
+					<th scope="col" style="text-align: center;">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 			<tr v-for="(question,index) in questions" :key="question._id">
-				<td>{{question.titleQuestion}}</td>
-				<td>{{question.descriptionQuestion | limit(30)}}</td>
-				<td>{{question.userIdQuestion}}</td>
-				<td>{{question.dateQuestion | limit(10)}}</td>
-				<td>{{question.area}}</td>
-				<td>
+				<td style="text-align: left;">{{question.titleQuestion}}</td>
+				<td style="text-align: left;">{{question.descriptionQuestion | limit(225)}}</td>
+				<td style="text-align: center;">{{question.userIdQuestion}}</td>
+				<td style="text-align: center;">{{question.dateQuestion | limit(10)}}</td>
+				<td style="text-align: center;">{{question.area}}</td>
+				<td style="text-align: center;">
 					<button @click.prevent="deleteQuestion(question._id,index)" type="button" class="btn btnsm">
-						<i class="fas fa-trash-alt"></i>
+						<i class="fas fa-trash"></i>
 					</button>
 					<button @click.prevent="sendIdToAnswer(question._id)" type="button" class="btn btnsm">
-						<i class="fas fa-pen-alt"></i>
+						<i class="fas fa-chevron-right"></i>
 					</button>
 				</td>
 			</tr>
