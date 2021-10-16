@@ -64,10 +64,10 @@ const CrudQuestions = {
 				<tr>
 					<th style="text-align: left;" scope="col">Title</th>
 					<th style="text-align: left;" scope="col">Description</th>
-					<th style="text-align: center;"scope="col">User</th>
-					<th style="text-align: center;"scope="col">Date</th>
-					<th style="text-align: center;"scope="col">Area</th>
-					<th scope="col" style="text-align: center;">Actions</th>
+					<th style="text-align: center;" scope="col">User</th>
+					<th style="text-align: center;" scope="col">Date</th>
+					<th style="text-align: center;" scope="col">Area</th>
+					<th style="text-align: center;" scope="col">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -182,7 +182,11 @@ const CrudQuestions = {
   filters: {
     limit(text,length){
       if(text==null) return ""
-      return text.substring(0,length);
+      else if(text.length > Number(225)) {
+        return (text.substring(0, length).concat("[continue...]"));
+        } else {
+        return text.substring(0, length);
+        }
     }
   },
 
