@@ -40,7 +40,7 @@ const Answers = {
 
 	methods: {
 		listAnswers() {
-			axios.get("./api/answers")
+			axios.get("http://localhost:3000/api/answers")
 				.then(response => {
 					this.answers = response.data;
 				})

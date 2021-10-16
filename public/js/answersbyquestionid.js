@@ -121,7 +121,7 @@ const AnswersByQuestionId = {
 
 	methods: {
 		listAnswersByQuestionId(question_id) {
-			axios.get("./api/answersbyquestionid/" + question_id)
+			axios.get("http://localhost:3000/api/answersbyquestionid/" + question_id)
 				.then(response => {
 					this.answers = response.data;
 				})
@@ -132,7 +132,7 @@ const AnswersByQuestionId = {
 		},
 
 		readQuestion(question_id){
-			axios.get("./api/questions/"+question_id)
+			axios.get("http://localhost:3000/api/questions/"+question_id)
 				.then(response => {
 					this.questionReaded = response.data;
 				})
@@ -143,7 +143,7 @@ const AnswersByQuestionId = {
 		},
 		/* questo read answer non serve */
 		readAnswer(answer_id){
-			axios.get("./api/answers/"+answer_id)
+			axios.get("http://localhost:3000/api/answers/"+answer_id)
 				.then(response => {
 					this.answerReaded = response.data;
 				})
@@ -159,7 +159,7 @@ const AnswersByQuestionId = {
 			this.adding = false;
 		},
 		addAnswer(){
-			axios.post("./api/answers",this.new_answer)
+			axios.post("http://localhost:3000/api/answers",this.new_answer)
 				.then(response => {
 					this.answers.push(response.data);
 					this.hideAddAnswer();
@@ -174,7 +174,7 @@ const AnswersByQuestionId = {
 				newanswer.tops.push(this.userId);
 				this.new_mod_answer.tops = newanswer.tops;
 
-			axios.put("./api/answers/"+answer_id,this.new_mod_answer)
+			axios.put("http://localhost:3000/api/answers/"+answer_id,this.new_mod_answer)
 				.then(response => {
 					this.answers.splice(idx,1,response.data);
 				});
@@ -191,7 +191,7 @@ const AnswersByQuestionId = {
 			this.new_mod_answer.tops = newanswer.tops;
 			this.new_mod_answer.loves = newanswer.lovesAnswer;
 
-			axios.put("./api/answers/"+answer_id,this.new_mod_answer)
+			axios.put("http://localhost:3000/api/answers/"+answer_id,this.new_mod_answer)
 				.then(response => {
 					this.answers.splice(idx,1,response.data);
 				})
@@ -207,7 +207,7 @@ const AnswersByQuestionId = {
 		},
 		setBestByUser(answer_id){
 			this.questionReaded.bestByUser = answer_id;
-			axios.put("./api/questions/"+this.questionId,this.questionReaded)
+			axios.put("http://localhost:3000/api/questions/"+this.questionId,this.questionReaded)
 				.then(response => {
 					console.log("best answer setted");
 				    this.$forceUpdate();
@@ -224,7 +224,7 @@ const AnswersByQuestionId = {
 			}
 		},
 		readUser(username){
-			axios.get("./api/typeofuser/"+username)
+			axios.get("http://localhost:3000/api/typeofuser/"+username)
 				.then(response => {
 					this.userReaded = response.data;
 				})

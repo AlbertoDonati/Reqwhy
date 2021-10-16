@@ -35,7 +35,7 @@ const Questions = {
 
 	methods: {
 		listQuestions(){
-			axios.get("./api/questions")
+			axios.get("http://localhost:3000/api/questions")
 				.then( response => {
 					this.questions = response.data;
 				})

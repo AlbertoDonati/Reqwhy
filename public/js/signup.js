@@ -41,7 +41,7 @@ const SignUp = {
     methods: {
 
         addUser() {
-            axios.post("./api/signup", this.new_user)
+            axios.post("http://localhost:3000/api/signup", this.new_user)
                 .then(response => {
                     console.log("signup success");
                     router.push({ path: `/login` });

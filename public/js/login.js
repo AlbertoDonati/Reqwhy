@@ -50,7 +50,7 @@ const Login = {
         /*se errore sett islogincorrect a false così fa vedere il warning*/
 
         verifyUser() {
-            axios.post("./api/login", this.user)
+            axios.post("http://localhost:3000/api/login", this.user)
                 .then(response => {
                     console.log("login success of username" + response.username);
                 })
