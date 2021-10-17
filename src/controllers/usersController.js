@@ -44,7 +44,7 @@ exports.verify_user = function(req, res) {
                 res.send(false)
             }
             else {
-                res.send(true);
+                res.send(true)
             }
         }
     });

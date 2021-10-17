@@ -2,13 +2,24 @@ const Home = {
     template: `
 <div id="home-component" class="container-fluid">
 	<h1> Home Component</h1>
-	<h1>Questa è la home</h1></h>
 	<div>
-	<!--<h1 v-if="isUserSetted()">Welcome, {{this.userId}}</h1>
-	<h1 v-else>Login to continue :)</h1>
-	</div>-->
+	<h1>Welcome, {{this.userId}}</h1>
+	</div>
+	<p>Please, go to the area you prefer. Ask and reply.</p>
 </div>
 `,
+    data: function (){
+        return {
+            userId : "",
+        }
+    },
+    mounted() {
+        this.userId = localStorage.getItem('username');
+        if((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")){
+            router.push({ path: `/login` })
+        }
+    },
+
 /*
 
     data: function (){
