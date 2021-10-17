@@ -1,3 +1,37 @@
+const Navbar = {
+    template: `
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+          <div id="navbarNav">
+            <ul class="navbar-nav">
+                <h2 style="text-emphasis-style: circle">Reqwhy</h2>
+                
+                <li><router-link class="nav-link" :to="'/'">HOME</router-link></li>
+                <li><router-link class="nav-link" :to="'/login'">LOGIN</router-link></li>
+                <li><router-link class="nav-link" :to="'/signup'">SIGNUP</router-link></li>
+                <li><router-link class="nav-link" :to="'/questions'" style="color: #3aa6d9">All</router-link></li>
+                <li><router-link class="nav-link" :to="'/crudquestions'">Insert</router-link></li>
+                
+                <li><router-link class="nav-link" :to="'/area/' + 'IT'">IT</router-link></li>
+                <li><router-link class="nav-link" :to="'/area/' + 'MATH'">MATH</router-link></li>
+                <li><router-link class="nav-link" :to="'/area/' + 'SCIENCE'">SCIENCE</router-link></li>
+                <li><router-link class="nav-link" :to="'/area/' + 'HISTORY'">HISTORY</router-link></li>
+                <li><router-link class="nav-link" :to="'/area/' + 'ART'">ART</router-link></li>
+                <li><router-link class="nav-link" :to="'/area/' + 'OTHER'">OTHER</router-link></li>
+             
+            </ul>
+            
+          </div>
+        </nav>
+        `,
+    data: function () {
+        return {
+        }
+    },
+    methods: {
+    },
+}
+/* sti navbutton non servono ad un cavolo */
+/*
 const Navbutton =  {
     props: ['text'],
 
@@ -19,77 +53,18 @@ const Navbutton =  {
             this.$emit('clicked')
         }
     },
-}
+}*/
 
-const Navbar = {
-    components: {
-        'navbutton': Navbutton,
-    },
-
-    template: `
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div id="navbarNav">
-            <ul class="navbar-nav">
-                <navbutton text="Questions" @clicked="onClickChild()"></navbutton>
-                <navbutton text="CrudQuestions" @clicked="onClickChild()"></navbutton>
-    
-                <navbutton text="Home" @clicked="onClickChild()"></navbutton>
-                <navbutton text="Login" @clicked="onClickChild()"></navbutton>
-                <navbutton text="SignUp" @clicked="onClickChild()"></navbutton>
-               
-                <li><router-link class="nav-link" :to="'/area/' + 'IT'">IT</router-link></li>
-                <li><router-link class="nav-link" :to="'/area/' + 'MATH'">MATH</router-link></li>
-                <li><router-link class="nav-link" :to="'/area/' + 'SCIENCE'">SCIENCE</router-link></li>
-                <li><router-link class="nav-link" :to="'/area/' + 'HISTORY'">HISTORY</router-link></li>
-                <li><router-link class="nav-link" :to="'/area/' + 'ART'">ART</router-link></li>
-                <li><router-link class="nav-link" :to="'/area/' + 'OTHER'">OTHER</router-link></li>
-             
-            </ul>
-             
-            <p>Tot click: {{count}}</p>
-            
-          </div>
-        </nav>
-        `,
-
-    data: function () {
-        return {
-            count: 0,
-        }
-    },
-
-    methods: {
-        onClickChild() {
-            this.count++;
-        },
-    }
-}
-
+/*erano dentro navbar*/
 /*
-  a class="nav-link" @onclick.prevent="href='/area/OTHER'">OTHER </a>
+data: function () {
+    return {
+        count: 0,
+    }
+},
 
-            <li><router-link class="nav-link" to="./area/IT">POLLOM</router-link></li>
-            <li><router-link class="nav-link" to="area/ART">PbOLLOM</router-link></li>
-            <li><router-link class="nav-link" to="/area/HISTORY">HISTORY</router-link></li>
-            <li><router-link class="nav-link" to="/area/ART">ART</router-link></li>
-
-
-<navbutton text="IT" @clicked="onPassString()"></navbutton>
-
-<router-link v-bind:to="'/area/' + 'IT'">CAVOLO2</router-link>
-<router-link v-bind:to="'/area/' + 'MATH'">CAVOLO3</router-link>
-<router-link v-bind:to="'/area/' + 'SCIENCE'">CAVO3LO</router-link>
-
-va ma è brutto ricarica tutta la pagina
-<li><a href="/area/IT" class="nav-link">poi</a></li>
-
-stare attuenti alle barre prima ecc ecc
-<li><router-link v-bind:to="'./area/' + 'IT'">CAVOLO2</router-link></li>
-<router-link v-bind:to="'../area/' + 'MATH'">CAVOLffO2</router-link>
-<router-link v-bind:to="'area/' + 'IT'">CAVOLO2</router-link>
-
-<a :href="$router.resolve({name: '/area/ART'}).href">link</a>
-
-<router-link v-bind:to="'/area/' + 'MATH'">MATH</router-link>
-<router-link v-bind:to="'/area/' + 'SCIENCE'">SCIENCE</router-link>
-*/
+methods: {
+    onClickChild() {
+        this.count++;
+    },
+} */
