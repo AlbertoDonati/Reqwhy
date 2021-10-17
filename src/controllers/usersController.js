@@ -15,7 +15,7 @@ exports.create_user = function(req, res) {
     });
 };
 
-exports.read_user = function(req, res) {
+exports.read_type_of_user = function(req, res) {
     User.findOne({username: req.params.username}, function(err, user) {
         if (err)
             res.send(err);
@@ -26,7 +26,11 @@ exports.read_user = function(req, res) {
                 });
             }
             else{
-                res.json(user);
+                if(user.isTeacher === true){
+                    res.send(true)
+                } else {
+                    res.send(false)
+                }
             }
         }
     });

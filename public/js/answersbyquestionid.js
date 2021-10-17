@@ -107,7 +107,7 @@ const AnswersByQuestionId = {
 			},
 			userId : "",
 			indexOfTop: -1,
-			userReaded: "",
+			userTypeReaded: false,
 		}
 	},
 	methods: {
@@ -196,21 +196,21 @@ const AnswersByQuestionId = {
 			return this.questionReaded.bestByUser === answer_id;
 		},
 		isAuth(){
-			if((this.userReaded.isTeacher === true) || (this.questionReaded.userIdQuestion === this.userId)){
+			if((this.userTypeReaded === true) || (this.questionReaded.userIdQuestion === this.userId)){
 				return true;
 			} else {
 				return false;
 			}
 		},
-		readUser(username){
+		readTypeOfUser(username){
 			axios.get("/api/typeofuser/"+username)
 				.then(response => {
-					this.userReaded = response.data;
+					this.userTypeReaded = response.data;
 				})
 				.catch(error => {
 					console.log(error);
 				})
-			console.log("user readed");
+			console.log("is a teacher " + this.userTypeReaded);
 		},
 	},
 	mounted() {
@@ -223,7 +223,7 @@ const AnswersByQuestionId = {
 			this.new_answer.idQuestion = this.questionId;
 			this.readQuestion(this.questionId);
 			this.listAnswersByQuestionId(this.questionId);
-			this.readUser(this.userId);
+			this.readTypeOfUser(this.userId);
 		}
 	},
 	computed: {

@@ -1,3 +1,4 @@
+const usersController = require("../controllers/usersController.js");
 module.exports = function(app) {
 	var questionsController = require('../controllers/questionsController.js');
 	var answersController = require('../controllers/answersController.js');
@@ -26,17 +27,16 @@ module.exports = function(app) {
 		.get(answersController.read_answer)
 		.put(answersController.update_answer);
 
+	app.route('/api/typeofuser/:username')
+		.get(usersController.read_type_of_user);
+
 	/*ROBA AGGIUNTA MA BOH*/
 
 	app.route('/api/signup')
 		.post(usersController.create_user);
 
-	app.route('/api/typeofuser/:username')
-		.get(usersController.read_user);
-
 	app.route('/api/login')
 		.post(usersController.verify_user);
-
 	/*meglio get ma get no puo avere un body accidenti*/
 
 	app.use(questionsController.show_reqwhy);
