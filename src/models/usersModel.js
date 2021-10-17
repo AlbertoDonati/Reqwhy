@@ -6,5 +6,6 @@ module.exports = function(mongoose) {
         isTeacher: Boolean,
     });
     UserSchema.set('autoIndex',false);
+    UserSchema.set("_id", false);
     return mongoose.model('usermodel', UserSchema, 'Users');
 };

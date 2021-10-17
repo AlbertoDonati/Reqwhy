@@ -72,17 +72,18 @@ const Login = {
         console.log("login success")
         localStorage.setItem('username', response.data.username);
         this.isSetted(); */
-
+        //penso che l'is setted non serva a molto in sto caso
+        /*
         isSetted(){
             if((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")){
-                console.log("no user logged");
+                console.log("not logged");
                 return false;
             }
             else {
                 console.log("logged as " + this.userId);
                 return true;
             }
-        },
+        },*/
 
         logout(){
             localStorage.setItem('username', "");
@@ -92,31 +93,22 @@ const Login = {
 
         fakeLoginUser1(){
             localStorage.setItem('username', "utente");
-            this.isSetted();
-            router.push({ path: `/` });
+            router.push({ path: `/crudquestions` });
         },
 
         fakeLoginUser2(){
             localStorage.setItem('username', "prof");
-            this.isSetted();
-            router.push({ path: `/` });
+            router.push({ path: `/crudquestions` });
         },
-
-        init() {
-            this.userId = localStorage.getItem('username');
-            console.log("login opened");
-            this.isSetted();
-        }
-
     },
-
     mounted() {
-        this.init();
+        this.userId = localStorage.getItem('username');
     },
-
     computed: {
         isFilled() {
-            return this.user.username && this.user.password;
+            if ((this.user.username !== "") && (this.user.password !== "")) {
+                return true;
+            }
         }
     },
 

@@ -213,20 +213,10 @@ const CrudQuestions = {
         else
             return false
       },
-      isSetted(){
-      if((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")){
-        console.log("no user logged");
-        return false;
-      }
-      else {
-        console.log("logged as " + this.userId);
-        return true;
-      }
-    },
   },
   mounted() {
     this.userId = localStorage.getItem('username');
-    if(!this.isSetted()){
+    if((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")){
       router.push({ path: `/` })
     }
     else {

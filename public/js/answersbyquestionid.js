@@ -212,29 +212,18 @@ const AnswersByQuestionId = {
 				})
 			console.log("user readed");
 		},
-		isSetted(){
-			if((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")){
-				console.log("no user logged");
-				return false;
-			}
-			else {
-				console.log("logged as " + this.userId);
-				return true;
-			}
-		},
 	},
 	mounted() {
 		this.userId = localStorage.getItem('username');
-		if(!this.isSetted()){
-			router.push({ path: `/` })
-		}
+        if((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")){
+            router.push({ path: `/` })
+        }
 		else {
 			this.new_answer.userIdAnswer = this.userId;
 			this.new_answer.idQuestion = this.questionId;
 			this.readQuestion(this.questionId);
 			this.listAnswersByQuestionId(this.questionId);
 			this.readUser(this.userId);
-
 		}
 	},
 	computed: {

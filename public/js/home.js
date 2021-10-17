@@ -4,11 +4,12 @@ const Home = {
 	<h1> Home Component</h1>
 	<h1>Questa è la home</h1></h>
 	<div>
-	<h1 v-if="isUserSetted()">Welcome, {{this.userId}}</h1>
+	<!--<h1 v-if="isUserSetted()">Welcome, {{this.userId}}</h1>
 	<h1 v-else>Login to continue :)</h1>
-	</div>
+	</div>-->
 </div>
 `,
+/*
 
     data: function (){
         return {
@@ -37,5 +38,6 @@ const Home = {
     mounted() {
         this.init();
     },
+*/
 
 }
