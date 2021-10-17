@@ -18,40 +18,24 @@ const CrudQuestions = {
 					<label>Description</label>
 					<textarea class="form-control" v-model="new_question.descriptionQuestion" id="descriptionQuestion" placeholder="Enter description"></textarea>
 				</div>
-				<div class="form-group">
+				<div class="form-label">
+				    <label>Area</label>
+                    <select class="form-select" v-model="new_question.area" id="area">
+                         <option value="" disabled>Select area</option>
+                         <option>IT</option>
+                         <option>MATH</option>
+                         <option>SCIENCE</option>
+                         <option>HISTORY</option>
+                         <option>ART</option>
+                        <option>OTHER</option>
+                    </select>
+                </div>
+                <div class="form-group">
 					<label>Date {{new_question.dateQuestion | limit(10)}} </label>
 					<!---
 					<input v-model="new_question.dateQuestion" type="date" class="form-control" id="dateQuestion" >
 				  -->
 				</div>
-				<div class="form-group">
-				 
-				 <label>Area</label>
-			     <div class="form-check">
-                 <input class="form-check-input" type="radio" value="IT" v-model="new_question.area" id="radioBtn">
-                 <label class="form-check-label" for="radioBtn" >IT</label>
-                 </div>
-                 <div class="form-check">
-                 <input class="form-check-input" type="radio" value="MATH" v-model="new_question.area" id="radioMATH">
-                 <label class="form-check-label" for="radioBtn" >MATH</label>
-                 </div>
-                 <div class="form-check">
-                 <input class="form-check-input" type="radio" value="SCIENCE" v-model="new_question.area" id="radioSCIENCE">
-                 <label class="form-check-label" for="radioBtn" >SCIENCE</label>
-                 </div>
-                 <div class="form-check">
-                 <input class="form-check-input" type="radio" value="HISTORY" v-model="new_question.area" id="radioHISTORY">
-                 <label class="form-check-label" for="radioBtn" >HISTORY</label>
-                 </div>
-                 <div class="form-check">
-                 <input class="form-check-input" type="radio" value="ART" v-model="new_question.area" id="radioART">
-                 <label class="form-check-label" for="radioBtn" >ART</label>
-                 </div>
-                 <div class="form-check">
-                 <input class="form-check-input" type="radio" value="OTHER" v-model="new_question.area" id="radioOTHER">
-                 <label class="form-check-label" for="radioBtn">OTHER</label>
-                 </div>   
-            </div>
 		</form>
 		<button @click.prevent="addQuestion" :disabled="!isFilled" type="submit" class="btn btn-primary">Submit</button>
 		<button @click.prevent="hideAddAndResetQuestion" type="cancel" class="btn btn-danger">Cancel</button>			
@@ -150,6 +134,7 @@ const CrudQuestions = {
       this.adding = false;
       this.new_question.titleQuestion = "";
       this.new_question.descriptionQuestion = "";
+      this.new_question.area = "";
     },
     addQuestion(){
       axios.post("/api/questions",this.new_question)
@@ -251,8 +236,10 @@ const CrudQuestions = {
   },
   computed: {
     isFilled() {
-        return true
-  }
+        if((this.new_question.titleQuestion !== "") && (this.new_question.descriptionQuestion) !== "" && (this.new_question.area !== "")) {
+            return true;
+        }
+    }
 },
   filters: {
     limit(text,length){
