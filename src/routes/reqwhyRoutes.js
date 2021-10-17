@@ -1,4 +1,3 @@
-const usersController = require("../controllers/usersController.js");
 module.exports = function(app) {
 	var questionsController = require('../controllers/questionsController.js');
 	var answersController = require('../controllers/answersController.js');

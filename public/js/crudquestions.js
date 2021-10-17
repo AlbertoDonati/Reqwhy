@@ -163,7 +163,7 @@ const CrudQuestions = {
 
     },
     sendIdToAnswer(question_id){
-      console.log("apro le risposte della domanda " + question_id)
+      console.log("open question " + question_id)
       router.push({ path: `/answersbyid/${question_id}` })
     },
     loveQuestion(question_id,idx,newquestion){

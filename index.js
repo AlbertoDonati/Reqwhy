@@ -13,7 +13,6 @@ mongoose.connect('mongodb://localhost/reqwhy', { useNewUrlParser: true, useFindA
 
 app.use(cors())
 
-//Per gestire i parametri passati nel corpo della richiesta http.
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
