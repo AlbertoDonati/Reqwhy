@@ -23,7 +23,6 @@ module.exports = function(app) {
 		.post(answersController.create_answer);
 
 	app.route('/api/answers/:id')
-		.get(answersController.read_answer)
 		.put(answersController.update_answer);
 
 	app.route('/api/typeofuser/:username')

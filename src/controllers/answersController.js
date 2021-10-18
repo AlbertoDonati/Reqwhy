@@ -18,14 +18,6 @@ exports.create_answer = function(req, res) {
 	});
 };
 
-exports.read_answer = function(req, res) {
-	Answer.findById({_id: req.params.id}, function(err, answer) {
-		if (err)
-			res.send(err);
-		res.json(answer);
-	});
-};
-
 exports.update_answer = function(req, res) {
 		Answer.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, answer) {
 			if (err)

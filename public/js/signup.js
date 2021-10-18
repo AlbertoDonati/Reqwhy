@@ -45,7 +45,7 @@ const SignUp = {
                     if (response.data === true) {
                         console.log("signup success of " + this.new_user.username);
                         this.isError = false;
-                        router.push(`/`, () => {});
+                        router.push(`/login`, () => {});
                     } else {
                         console.log("error");
                         this.showWarningAndReset();
@@ -70,15 +70,3 @@ const SignUp = {
         }
     },
 }
-
-/*
-
-        console.log("signup success");
-        router.push(`/`, () => {});
-    }) */
-
-/*
-.catch((error) => {
-if (error.response.status === 404) {
-    this.isAlreadyUsed = true;
-}*/

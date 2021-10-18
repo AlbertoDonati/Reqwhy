@@ -23,7 +23,7 @@ const Login = {
 			<button @click="verifyUser(inserted_user)" :disabled="!isFilled" type="submit" class="btn btn-primary" style="margin-top: 1%">Login</button>
 		  </div>
 		  
-			<div v-if="!showForm" style="margin-top: 1%">
+			<div v-if="!showForm">
 			<button @click="logout" type="submit" class="btn btn-primary">Logout</button>
 			</div>
 			
@@ -74,7 +74,7 @@ const Login = {
             console.log("logout");
             this.isLoginCorrect = true;
             this.showForm = true;
-            router.push(`/`, () => {});
+            router.push(`/login`, () => {});
         },
         showWarningAndReset(){
             this.isLoginCorrect = false;
@@ -107,73 +107,3 @@ const Login = {
         }
     },
 }
-
-/*
-
-<div>
-    <button @click.prevent="fakeLoginUser1" type="submit" class="btn btn-primary">FakeLoginUtente</button>
-<button @click.prevent="fakeLoginUser2" type="submit" class="btn btn-primary">FakeLoginProf</button>
-</div>
-
-
-*/
-
-
-/*
-
-fakeLoginUser1(){
-    localStorage.setItem('username', "utente");
-    router.push({ path: `/questions` });
-},
-
-fakeLoginUser2(){
-    localStorage.setItem('username', "prof");
-    router.push({ path: `/questions` });
-},*/
-
-
-/*
-addAnswer(){
-    axios.post("/api/answers",this.new_answer)
-        .then(response => {
-            this.answers.push(response.data);
-            this.hideAddAndResetAnswer();
-        })
-    console.log("riposta inserita");
-},*/
-
-/*da rivedere tutta questa perchè boh, incluso ritorno ed errori ecc */
-/*se errore sett islogincorrect a false così fa vedere il warning*/
-
-
-
-/* verifyUser() {
-    axios.post("http://localhost:3000/api/login", this.new_user)
-        .then(response => {
-            console.log("login success of username" + response.username);
-            // router.push({ path: `/` });
-        }).catch((error) => {
-        if (error.response.status === 404) {
-            this.isLoginCorrect = false;
-        }
-    })
-},  */
-
-/*  console.log("CAVOLO" + response.data);
-console.log("login success")
-localStorage.setItem('username', response.data.username);
-this.isSetted(); */
-//penso che l'is setted non serva a molto in sto caso
-/*
-isSetted(){
-    if((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")){
-        console.log("not logged");
-        return false;
-    }
-    else {
-        console.log("logged as " + this.userId);
-        return true;
-    }
-},*/
-
-

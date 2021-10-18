@@ -14,9 +14,7 @@ const Navbar = {
                 <button @click="goToSignUp()" type="button" class="btn btnsm">
                      <i class="fas fa-user-plus"></i>
                 </button>
-                <li class="nav-item" style="margin-left: 3%"><router-link class="nav-link" :to="'/'">Home</router-link></li><!--
-                <li class="nav-item" style="margin-left: 3%"><router-link class="nav-link" :to="'/questions'">All</router-link></li>
-                <li class="nav-item" style="margin-left: 3%"><router-link class="nav-link" :to="'/crudquestions'">Insert</router-link></li>-->
+                <li class="nav-item" style="margin-left: 3%"><router-link class="nav-link" :to="'/'">Home</router-link></li>
                 <li class="nav-item" style="margin-left: 3%"><router-link class="nav-link" :to="'/area/' + 'IT'">IT</router-link></li>
                 <li class="nav-item" style="margin-left: 3%"><router-link class="nav-link" :to="'/area/' + 'MATH'">MATH</router-link></li>
                 <li class="nav-item" style="margin-left: 3%"><router-link class="nav-link" :to="'/area/' + 'SCIENCE'">SCIENCE</router-link></li>
@@ -28,10 +26,6 @@ const Navbar = {
           </div>
         </nav>
         `,
-    data: function () {
-        return {
-        }
-    },
     methods: {
         goToLogin() {
                 router.push(`/login`, () => {});
@@ -40,44 +34,4 @@ const Navbar = {
                 router.push(`/signup`, () => {});
         },
     },
-
-
 }
-/* sti navbutton non servono ad un cavolo */
-/*
-const Navbutton =  {
-    props: ['text'],
-
-    template: `
-        <li v-on:click="onClickButton()" class="nav-item">
-            <router-link class="nav-link" :to="{ name: text }">{{text}} ({{ count }} click)</router-link>
-        </li>
-    `,
-
-    data: function () {
-        return {
-            count: 0
-        }
-    },
-
-    methods: {
-        onClickButton() {
-            this.count++;
-            this.$emit('clicked')
-        }
-    },
-}*/
-
-/*erano dentro navbar*/
-/*
-data: function () {
-    return {
-        count: 0,
-    }
-},
-
-methods: {
-    onClickChild() {
-        this.count++;
-    },
-} */
