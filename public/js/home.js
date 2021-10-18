@@ -16,7 +16,7 @@ const Home = {
     mounted() {
         this.userId = localStorage.getItem('username');
         if((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")){
-            router.push({ path: `/login` })
+            router.push(`/login`, () => {});
         }
     },
 

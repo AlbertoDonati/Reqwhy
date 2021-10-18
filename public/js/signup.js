@@ -45,7 +45,7 @@ const SignUp = {
                     if (response.data === true) {
                         console.log("signup success of " + this.new_user.username);
                         this.isError = false;
-                        router.push({path: '/'});
+                        router.push(`/`, () => {});
                     } else {
                         console.log("error");
                         this.showWarningAndReset();
@@ -74,7 +74,7 @@ const SignUp = {
 /*
 
         console.log("signup success");
-        router.push({ path: `/login` });
+        router.push(`/`, () => {});
     }) */
 
 /*

@@ -169,8 +169,8 @@ const CrudQuestions = {
 
     },
     sendIdToAnswer(question_id){
-      console.log("open question " + question_id)
-      router.push({ path: `/answersbyid/${question_id}` })
+      console.log("open question " + question_id);
+      router.push(`/answersbyid/${question_id}`, () => {});
     },
     loveQuestion(question_id,idx,newquestion){
           this.new_mod_question.titleQuestion =  newquestion.titleQuestion;
@@ -229,7 +229,7 @@ const CrudQuestions = {
   mounted() {
     this.userId = localStorage.getItem('username');
     if((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")){
-      router.push({ path: `/` })
+        router.push(`/`, () => {});
     }
     else {
       this.new_question.userIdQuestion = this.userId;

@@ -228,7 +228,7 @@ const AnswersByQuestionId = {
 	mounted() {
 		this.userId = localStorage.getItem('username');
         if((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")){
-            router.push({ path: `/` })
+            router.push(`/`, () => {});
         }
 		else {
 			this.new_answer.userIdAnswer = this.userId;

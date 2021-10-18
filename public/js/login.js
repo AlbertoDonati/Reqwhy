@@ -58,7 +58,7 @@ const Login = {
                     localStorage.setItem('username', this.verified_user.username);
                     this.isLoginCorrect = true;
                     this.showForm = false;
-                    router.push({path: '/'});
+                    router.push(`/`, () => {});
                     }
                     else {
                         console.log("wrong username and/or password");
@@ -74,7 +74,7 @@ const Login = {
             console.log("logout");
             this.isLoginCorrect = true;
             this.showForm = true;
-            router.push({path: `/`});
+            router.push(`/`, () => {});
         },
         showWarningAndReset(){
             this.isLoginCorrect = false;
