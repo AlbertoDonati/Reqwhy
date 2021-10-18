@@ -1,7 +1,10 @@
 const Login = {
     template: `
 <div id="login-component" class="container-fluid">
-	<h1>Login Component</h1>
+    
+    <h1 v-if="showForm">Login</h1>			
+	<h1 v-if="!showForm">Logout</h1>
+	
 	<div class="row">
 		<div class="col">
 		
@@ -24,7 +27,7 @@ const Login = {
 		  </div>
 		  
 			<div v-if="!showForm">
-			<button @click="logout" type="submit" class="btn btn-primary">Logout</button>
+			<button @click="logout" type="submit" class="btn btn-info" style="margin-top: 1%">Logout</button>
 			</div>
 			
 		</div>

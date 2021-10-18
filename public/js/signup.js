@@ -1,7 +1,7 @@
 const SignUp = {
     template: `
 <div id="signup-component" class="container-fluid">
-	<h1>SignUp Component</h1>
+	<h1>SignUp</h1>
 	<div class="row">
 		<div class="col">
 		        <div v-if="isError">
@@ -16,12 +16,12 @@ const SignUp = {
 					<label>password</label>
 					<input class="form-control" v-model="new_user.password" type="password" id="password">
 				</div>
-				<div class="form-group form-check">
+				<div class="form-group form-check" style="margin-top: 1%">
                 <input type="checkbox" class="form-check-input" v-model="new_user.isTeacher" id="isTeacher">
                 <label class="form-check-label">I'm a teacher</label>
                 </div>
 			</form>
-				<button @click="addUser" :disabled="!isFilled" type="submit" class="btn btn-primary">SignUp</button>
+				<button @click="addUser" :disabled="!isFilled" type="submit" class="btn btn-primary" style="margin-top: 1%">SignUp</button>
 		</div>
 	</div>
 </div>

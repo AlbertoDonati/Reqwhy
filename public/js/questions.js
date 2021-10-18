@@ -1,7 +1,8 @@
 const Questions = {
 		template: `
 <div id="crud-questions-component" class="container-fluid">
-	<h1>Crud areaQuestions Component</h1>
+	<h1 v-if="!this.isAreaSetted">Questions</h1>
+	<h1 v-if="this.isAreaSetted">Questions about {{this.area}}</h1>
 	<div class="row" v-if="!this.isAreaSetted">
 		<div class="col">
 			<button @click.prevent="showAddQuestion" type="button" class="btn btn-success"><i class="fas fa-plus"></i> Add Question</button>
