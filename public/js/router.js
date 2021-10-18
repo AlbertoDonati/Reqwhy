@@ -1,9 +1,9 @@
 const router = new VueRouter({
     mode: 'history',
     routes: [
-      { path: '/', name: "Home", component: Home },
-      { path: '/questions', name: "Questions", component: Questions },
-      { path: '/crudquestions', name: "CrudQuestions", component: CrudQuestions },
+      { path: '/', name: "Home", component: QuestionsByArea },
+  /*    { path: '/questions', name: "Questions", component: Questions },*/
+     /* { path: '/crudquestions', name: "CrudQuestions", component: CrudQuestions },*/
       { path: '/area/:area', name: "QuestionsByArea", component: QuestionsByArea},
       { path: '/answersbyid/:question', name: "AnswersByQuestionId", component: AnswersByQuestionId},
       { path: '/login', name: "Login", component: Login},
