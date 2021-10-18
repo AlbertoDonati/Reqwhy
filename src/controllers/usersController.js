@@ -4,16 +4,14 @@ User = require("../models/usersModel.js")(mongoose);
 exports.create_user = function(req, res) {
     var new_user = new User(req.body);
     new_user.save(function(err, user) {
-        if (err) //qui l ho messos personalizzato il 404 così da vedere se user cè già
-            //controllare che sta cosa vada bene, confromtatrea anche con gli altri controller
-            res.status(404).send({
-                description: 'username already used'
-            });
-        else {
-            res.status(201).json(user);
-        }
+            if (err)
+                res.send(err);
+            else{
+                    res.status(201).send(true);
+                }
     });
 };
+
 exports.read_type_of_user = function(req, res) {
     User.findOne({username: req.params.username}, function(err, user) {
         if (err)

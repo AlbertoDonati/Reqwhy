@@ -125,6 +125,9 @@ const CrudQuestions = {
         .then( response => {
           this.questions = response.data;
         })
+        .catch(error => {
+              console.log(error);
+          })
     },
     showAddQuestion(){
       this.adding = true;
@@ -142,6 +145,9 @@ const CrudQuestions = {
           this.questions.push(response.data);
           this.hideAddAndResetQuestion()
         })
+          .catch(error => {
+              console.log(error);
+          })
     },
     deleteQuestion(question_id,idx){
       axios.delete("/api/answersbyquestionid/"+question_id)
@@ -180,6 +186,9 @@ const CrudQuestions = {
               .then(response => {
                 this.questions.splice(idx,1,response.data);
               })
+              .catch(error => {
+                  console.log(error);
+              })
           console.log("question love");
         },
         notLoveQuestion(question_id,idx,newquestion){
@@ -196,6 +205,9 @@ const CrudQuestions = {
           axios.put("/api/questions/"+question_id,this.new_mod_question)
               .then(response => {
                 this.questions.splice(idx,1,response.data);
+              })
+              .catch(error => {
+                  console.log(error);
               })
           console.log("question not love");
         },

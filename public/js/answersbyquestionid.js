@@ -146,6 +146,9 @@ const AnswersByQuestionId = {
 					this.answers.push(response.data);
 					this.hideAddAndResetAnswer();
 				})
+                .catch(error => {
+                    console.log(error);
+                })
 			console.log("riposta inserita");
 		},
 		upAnswer(answer_id,idx,newanswer){
@@ -159,7 +162,10 @@ const AnswersByQuestionId = {
 			axios.put("/api/answers/"+answer_id,this.new_mod_answer)
 				.then(response => {
 					this.answers.splice(idx,1,response.data);
-				});
+				})
+                .catch(error => {
+                    console.log(error);
+                })
 			console.log("answer up");
 		},
 		downAnswer(answer_id,idx,newanswer){
@@ -174,7 +180,10 @@ const AnswersByQuestionId = {
 			axios.put("/api/answers/"+answer_id,this.new_mod_answer)
 				.then(response => {
 					this.answers.splice(idx,1,response.data);
-				});
+				})
+                .catch(error => {
+                    console.log(error);
+                })
 			console.log("answer down");
 		},
 		controlMyAns(idx){
@@ -190,7 +199,10 @@ const AnswersByQuestionId = {
 				.then(response => {
 					console.log("best answer setted");
 					this.$forceUpdate();
-				});
+				})
+                .catch(error => {
+                    console.log(error);
+                })
 		},
 		isTheBestAnswer(answer_id){
 			return this.questionReaded.bestByUser === answer_id;

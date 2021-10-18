@@ -65,6 +65,9 @@ const Login = {
                         this.showWarningAndReset();
                     }
                 })
+                .catch(error => {
+                    console.log(error);
+                })
         },
         logout(){
             localStorage.setItem('username', "");

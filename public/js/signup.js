@@ -4,9 +4,9 @@ const SignUp = {
 	<h1>SignUp Component</h1>
 	<div class="row">
 		<div class="col">
-		<div v-if="isAlreadyUsed">
-		<p style="color: darkorange">Username already assigned</p>
-		</div>
+		        <div v-if="isError">
+		        <p style="color: darkorange">Error. Try again.</p>
+		        </div>
 			<form id="formSignUp">
 				<div class="form-group">
 					<label>username</label>
@@ -17,11 +17,11 @@ const SignUp = {
 					<input class="form-control" v-model="new_user.password" type="password" id="password">
 				</div>
 				<div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" v-model="new_user.isTeacher" id="type">
+                <input type="checkbox" class="form-check-input" v-model="new_user.isTeacher" id="isTeacher">
                 <label class="form-check-label">I'm a teacher</label>
                 </div>
 			</form>
-				<button @click.prevent="addUser" type="submit" class="btn btn-primary">SignUp</button>
+				<button @click="addUser" :disabled="!isFilled" type="submit" class="btn btn-primary">SignUp</button>
 		</div>
 	</div>
 </div>
@@ -34,32 +34,51 @@ const SignUp = {
                 password: "",
                 isTeacher: false,
             },
-            isAlreadyUsed: false,
+            isError: false,
         }
     },
 
     methods: {
-
         addUser() {
             axios.post("/api/signup", this.new_user)
                 .then(response => {
-                    console.log("signup success");
-                    router.push({ path: `/login` });
-                }).catch((error) => {
-                if (error.response.status === 404) {
-                    this.isAlreadyUsed = true;
-                }
-            })
+                    if (response.data === true) {
+                        console.log("signup success of " + this.new_user.username);
+                        this.isError = false;
+                        router.push({path: '/'});
+                    } else {
+                        console.log("error");
+                        this.showWarningAndReset();
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                })
         },
-        init() {
-            console.log("signup opened");
+        showWarningAndReset(){
+            this.isError = true;
+            this.new_user.username = "";
+            this.new_user.password = "";
+            this.new_user.isTeacher = false;
         },
     },
-
-
-    mounted() {
-        this.init();
+    computed: {
+        isFilled() {
+            if ((this.new_user.username !== "") && (this.new_user.password !== "")) {
+                return true;
+            }
+        }
     },
-
 }
 
+/*
+
+        console.log("signup success");
+        router.push({ path: `/login` });
+    }) */
+
+/*
+.catch((error) => {
+if (error.response.status === 404) {
+    this.isAlreadyUsed = true;
+}*/

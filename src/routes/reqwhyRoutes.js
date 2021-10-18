@@ -29,14 +29,11 @@ module.exports = function(app) {
 	app.route('/api/typeofuser/:username')
 		.get(usersController.read_type_of_user);
 
-	/*ROBA AGGIUNTA MA BOH*/
-
 	app.route('/api/signup')
 		.post(usersController.create_user);
 
 	app.route('/api/login')
 		.post(usersController.verify_user);
-	/*meglio get ma get no puo avere un body accidenti*/
 
 	app.use(questionsController.show_reqwhy);
 
