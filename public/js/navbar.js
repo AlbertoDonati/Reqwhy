@@ -3,7 +3,7 @@ const Navbar = {
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
           <div id="navbarNav">
             <ul class="navbar-nav">
-                <a class="navbar-brand" href="/" style="text-emphasis-style: circle;color: darkblue;margin-left: 10pt">Reqwhy</a>
+                <a class="navbar-brand" href="/" style="text-emphasis-style: circle;margin-left: 2%">Reqwhy</a>
                 
                 <li class="nav-item"><router-link class="nav-link" :to="'/'">Home</router-link></li>
                 <li class="nav-item"><router-link class="nav-link" :to="'/questions'">All</router-link></li>
