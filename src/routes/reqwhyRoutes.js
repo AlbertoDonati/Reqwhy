@@ -37,9 +37,6 @@ module.exports = function(app) {
 	app.route('/api/crypt')
 		.post(usersController.crypt);
 
-	app.route('/api/decrypt')
-		.post(usersController.decrypt);
-
 	app.use(questionsController.show_reqwhy);
 
 };
