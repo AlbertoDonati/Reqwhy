@@ -10,11 +10,12 @@ const SignUp = {
 			<form id="formSignUp">
 				<div class="form-group">
 					<label>username</label>
-					<input class="form-control" v-model="new_user.username" type="text" id="username">
+					<input class="form-control" v-model="new_user.username" type="text" id="username" placeholder="Enter username">
 				</div>
 				<div class="form-group">
 					<label>password</label>
-					<input class="form-control" v-model="new_user.password" type="password" id="password">
+					<input class="form-control" v-model="new_user.password" type="password" id="password" placeholder="Enter password">
+					<i class="fas fa-eye-slash"></i>
 				</div>
 				<div class="form-group form-check" style="margin-top: 1%">
                 <input type="checkbox" class="form-check-input" v-model="new_user.isTeacher" id="isTeacher">
@@ -48,8 +49,7 @@ const SignUp = {
                             if (response.data === true) {
                                 console.log("signup success of " + this.new_user.username);
                                 this.isError = false;
-                                router.push(`/login`, () => {
-                                });
+                                router.push(`/login`, () => {});
                             } else {
                                 console.log("error");
                                 this.showWarningAndReset();

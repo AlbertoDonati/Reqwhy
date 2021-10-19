@@ -16,11 +16,11 @@ const Login = {
 			<form id="formLogin">
 				<div class="form-group">
 					<label>username</label>
-					<input class="form-control" v-model="inserted_user.username" type="text" id="username">	
+					<input class="form-control" v-model="inserted_user.username" type="text" id="username" placeholder="Enter username">	
 				</div>
 				<div class="form-group">
 					<label>password</label>
-					<input class="form-control" v-model="inserted_user.password" type="password" id="password">
+					<input class="form-control" v-model="inserted_user.password" type="password" id="password" placeholder="Enter password">
 				</div>
 			</form>
 			<button @click="verifyUser(inserted_user)" :disabled="!isFilled" type="submit" class="btn btn-primary" style="margin-top: 1%">Login</button>
