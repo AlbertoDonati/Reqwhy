@@ -40,16 +40,24 @@ const SignUp = {
 
     methods: {
         addUser() {
-            axios.post("/api/signup", this.new_user)
+            axios.post("/api/crypt", this.new_user)
                 .then(response => {
-                    if (response.data === true) {
-                        console.log("signup success of " + this.new_user.username);
-                        this.isError = false;
-                        router.push(`/login`, () => {});
-                    } else {
-                        console.log("error");
-                        this.showWarningAndReset();
-                    }
+                    this.new_user.password = response.data;
+                    axios.post("/api/signup", this.new_user)
+                        .then(response => {
+                            if (response.data === true) {
+                                console.log("signup success of " + this.new_user.username);
+                                this.isError = false;
+                                router.push(`/login`, () => {
+                                });
+                            } else {
+                                console.log("error");
+                                this.showWarningAndReset();
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        })
                 })
                 .catch(error => {
                     console.log(error);

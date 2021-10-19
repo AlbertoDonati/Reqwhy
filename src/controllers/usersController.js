@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var bcrypt = require("bcryptjs");
 User = require("../models/usersModel.js")(mongoose);
 
 exports.create_user = function(req, res) {
@@ -47,6 +48,23 @@ exports.verify_user = function(req, res) {
         }
     });
 };
+
+exports.crypt = function (req, res) {
+    var psw = req.body.password;
+    var hash = bcrypt.hashSync(psw, 10);
+    res.send(hash);
+};
+
+exports.decrypt = function (req, res) {
+    var dePsw = req.body.password;
+    var polloDB = '$2a$10$zJ.OBePwXYjXOm9dJhNNKe7zM8HMsbC7JE48.QpaUiFPEmicY7Nii';
+    var value = bcrypt.compareSync(dePsw, polloDB);
+    res.send(value);
+};
+
+
+
+
 
 
 
