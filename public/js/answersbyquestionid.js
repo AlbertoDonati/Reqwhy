@@ -1,7 +1,6 @@
 const AnswersByQuestionId = {
 	template: `
 <div id="answers-component" class="container-fluid">
-	<h1>Answers Component</h1>
 	
 	<div class="card">
   		<div class="card-header">

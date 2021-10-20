@@ -49,7 +49,9 @@ const Questions = {
 					<th style="text-align: center;" scope="col">User</th>
 					<th style="text-align: center;" scope="col">Date</th>
 					<th style="text-align: center;" scope="col">Area</th>
-					<th style="text-align: center;" scope="col">Actions</th>
+					<th style="text-align: center;" scope="col"><i class="far fa-trash-alt"></i></th>
+					<th style="text-align: center;" scope="col"><i class="far fa-heart"></i></i></th>
+					<th style="text-align: center;" scope="col"><i class="far fa-edit"></i></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -60,6 +62,15 @@ const Questions = {
 				<td style="text-align: center;">{{question.dateQuestion | limit(10)}}</td>
 				<td style="text-align: center;">{{question.area}}</td>
 				<td style="text-align: center;">
+				         <button v-if="!isAuth(index)" type="button" class="btn btnsm">
+                         <i class="fas fa-ban"></i>
+                         </button>
+                     
+                         <button v-if="isAuth(index)" @click.prevent="deleteQuestion(question._id,index)" type="button" class="btn btnsm">
+                         <i class="fas fa-trash"></i>
+                         </button>
+                </td>
+				<td style="text-align: center;">
                          <button v-if="!controlMyQuest(index)" @click.prevent="loveQuestion(question._id,index,question)" type="button" class="btn btnsm">
                          <i class="far fa-grin-hearts"></i>
                          {{question.loves.length}}
@@ -69,19 +80,11 @@ const Questions = {
                          <i class="fas fa-grin-hearts"></i>
                          {{question.loves.length}}
                          </button>
-                         
-                         <button v-if="!isAuth(index)" type="button" class="btn btnsm">
-                         <i class="fas fa-times"></i>
-                         </button>
-                        
-                         <button v-if="isAuth(index)" @click.prevent="deleteQuestion(question._id,index)" type="button" class="btn btnsm">
-                         <i class="fas fa-trash"></i>
-                         </button>
-                       
-                          <button @click.prevent="sendIdToAnswer(question._id)" type="button" class="btn btnsm">
-					      <i class="fas fa-chevron-right"></i>
-					      </button>
-                    
+                </td>        
+               	<td style="text-align: center;">          
+                         <button @click.prevent="sendIdToAnswer(question._id)" type="button" class="btn btnsm">
+					     <i class="fas fa-chevron-right"></i>
+					     </button>
 				</td>
 			</tr>
 			</tbody>
