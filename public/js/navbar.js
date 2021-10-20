@@ -4,16 +4,18 @@ const Navbar = {
           <div id="navbarNav">
             <ul class="navbar-nav">
                 <a class="navbar-brand" style="text-emphasis-style: circle;">Reqwhy</a>
+                
+                <li class="nav-item">
+                <button @click="goToSignUp()" type="button" class="btn btnsm">
+                     <i class="fas fa-user-plus"></i>
+                </button>
+                
                 <li class="nav-item">
                 <button @click="goToLogin()" type="button" class="btn btnsm">
                      <i class="fas fa-user"></i>
                 </button>
                 </li>
                 
-                <li class="nav-item">
-                <button @click="goToSignUp()" type="button" class="btn btnsm">
-                     <i class="fas fa-user-plus"></i>
-                </button>
                 <li class="nav-item" style="margin-left: 3%"><router-link class="nav-link" :to="'/'">Home</router-link></li>
                 <li class="nav-item" style="margin-left: 3%"><router-link class="nav-link" :to="'/area/' + 'IT'">IT</router-link></li>
                 <li class="nav-item" style="margin-left: 3%"><router-link class="nav-link" :to="'/area/' + 'MATH'">MATH</router-link></li>

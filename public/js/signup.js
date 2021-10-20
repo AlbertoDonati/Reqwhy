@@ -37,6 +37,7 @@ const SignUp = {
                 password: "",
                 isTeacher: false,
             },
+            userId: "",
             isError: false,
             showPassword: false,
         }
@@ -69,6 +70,15 @@ const SignUp = {
         showPsw(){
             this.showPassword = this.showPassword !== true;
         },
+    },
+    mounted() {
+        this.userId = localStorage.getItem('username');
+        if((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")){
+            console.log("please signup")
+        }
+        else {
+            router.push(`/login`, () => {});
+        }
     },
     computed: {
         isFilled() {
