@@ -13,9 +13,9 @@ const SignUp = {
 					<input class="form-control" v-model="new_user.username" type="text" id="username" placeholder="Enter username">
 				</div>
 				<div class="form-group">
-					<label>password</label>
-					<input class="form-control" v-model="new_user.password" type="password" id="password" placeholder="Enter password">
-					<i class="fas fa-eye-slash"></i>
+					<label>password</label> <i @click.prevent="showPsw" class="fas fa-eye-slash" style="margin-left: 1%"></i>
+					<input v-if="!showPassword" class="form-control" v-model="new_user.password" type="password" id="password_hidden" placeholder="Enter password">
+				    <input v-if="showPassword" class="form-control" v-model="new_user.password" type="text" id="password_show" placeholder="Enter password">
 				</div>
 				<div class="form-group form-check" style="margin-top: 1%">
                 <input type="checkbox" class="form-check-input" v-model="new_user.isTeacher" id="isTeacher">
@@ -36,6 +36,7 @@ const SignUp = {
                 isTeacher: false,
             },
             isError: false,
+            showPassword: false,
         }
     },
 
@@ -54,6 +55,7 @@ const SignUp = {
                                 console.log("error");
                                 this.showWarningAndReset();
                             }
+                            this.showPassword = false;
                         })
                         .catch(error => {
                             console.log(error);
@@ -68,6 +70,9 @@ const SignUp = {
             this.new_user.username = "";
             this.new_user.password = "";
             this.new_user.isTeacher = false;
+        },
+        showPsw(){
+            this.showPassword = this.showPassword !== true;
         },
     },
     computed: {

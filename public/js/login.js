@@ -19,8 +19,9 @@ const Login = {
 					<input class="form-control" v-model="inserted_user.username" type="text" id="username" placeholder="Enter username">	
 				</div>
 				<div class="form-group">
-					<label>password</label>
-					<input class="form-control" v-model="inserted_user.password" type="password" id="password" placeholder="Enter password">
+					<label>password</label> <i @click.prevent="showPsw" class="fas fa-eye-slash" style="margin-left: 1%"></i>
+					<input v-if="!showPassword" class="form-control" v-model="inserted_user.password" type="password" id="password_hidden" placeholder="Enter password">
+				    <input v-if="showPassword" class="form-control" v-model="inserted_user.password" type="text" id="password_show" placeholder="Enter password">
 				</div>
 			</form>
 			<button @click="verifyUser(inserted_user)" :disabled="!isFilled" type="submit" class="btn btn-primary" style="margin-top: 1%">Login</button>
@@ -48,6 +49,7 @@ const Login = {
             userId: "",
             isLoginCorrect: true,
             showForm: true,
+            showPassword: false,
         }
     },
     methods: {
@@ -67,6 +69,7 @@ const Login = {
                         console.log("wrong username and/or password");
                         this.showWarningAndReset();
                     }
+                    this.showPassword = false;
                 })
                 .catch(error => {
                     console.log(error);
@@ -89,6 +92,9 @@ const Login = {
         },
         hideLogin(){
             this.showForm = false;
+        },
+        showPsw(){
+            this.showPassword = this.showPassword !== true;
         },
     },
     mounted() {
