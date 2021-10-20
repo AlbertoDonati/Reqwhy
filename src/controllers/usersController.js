@@ -4,6 +4,7 @@ User = require("../models/usersModel.js")(mongoose);
 
 exports.create_user = function(req, res) {
     var new_user = new User(req.body);
+    new_user.password = bcrypt.hashSync(req.body.password, 10);
     new_user.save(function(err, user) {
             if (err)
                 res.send(err);
@@ -52,8 +53,4 @@ exports.verify_user = function(req, res) {
             }
         }
     });
-};
-
-exports.crypt = function (req, res) {
-    res.json(bcrypt.hashSync(req.body.password, 10));
 };

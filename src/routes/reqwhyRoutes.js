@@ -33,10 +33,7 @@ module.exports = function(app) {
 
 	app.route('/api/login')
 		.post(usersController.verify_user);
-
-	app.route('/api/crypt')
-		.post(usersController.crypt);
-
+    
 	app.use(questionsController.show_reqwhy);
 
 };
