@@ -61,11 +61,11 @@ const Login = {
             axios.post("/api/login", this.verified_user)
                 .then(response => {
                     if(response.data === true) {
-                    console.log("login success of " + this.verified_user.username);
-                    localStorage.setItem('username', this.verified_user.username);
-                    this.isLoginCorrect = true;
-                    this.showForm = false;
-                    router.push(`/`, () => {});
+                        console.log("login success of " + this.verified_user.username);
+                        localStorage.setItem('username', this.verified_user.username);
+                        this.isLoginCorrect = true;
+                        this.showForm = false;
+                        router.push(`/`, () => {});
                     }
                     else {
                         console.log("wrong username and/or password");
@@ -102,8 +102,8 @@ const Login = {
     mounted() {
         this.userId = localStorage.getItem('username');
         if((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")){
-           console.log("no user logged");
-           this.showLogin();
+            console.log("no user logged");
+            this.showLogin();
         }
         else {
             console.log("logged user " + this.userId);
@@ -112,7 +112,7 @@ const Login = {
     },
     computed: {
         isFilled() {
-           if ((this.inserted_user.username !== "") && (this.inserted_user.password !== "")) {
+            if ((this.inserted_user.username !== "") && (this.inserted_user.password !== "")) {
                 return true;
             }
         }

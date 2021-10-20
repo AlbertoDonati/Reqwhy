@@ -74,7 +74,7 @@ const SignUp = {
     mounted() {
         this.userId = localStorage.getItem('username');
         if((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")){
-            console.log("please signup")
+            console.log("please signup");
         }
         else {
             router.push(`/login`, () => {});

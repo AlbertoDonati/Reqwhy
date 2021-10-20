@@ -1,5 +1,5 @@
 const Questions = {
-		template: `
+    template: `
 <div id="crud-questions-component" class="container-fluid">
 	<h1 v-if="!this.isAreaSetted">Questions</h1>
 	<h1 v-if="this.isAreaSetted">Questions about {{this.area}}</h1>
@@ -94,186 +94,187 @@ const Questions = {
 </div>
 `,
 
-		data() {
-			return  {
-				questions: [],
-				area: this.$route.params.area,
-				adding: false,
-				isAreaSetted: false,
-				new_question: {
-					titleQuestion: "",
-					descriptionQuestion: "",
-					userIdQuestion: "",
-					dateQuestion: new Date(Date.now()).toISOString(),
-					area: "",
-					bestByUser: "",
-					loves: [],
-				},
-				new_mod_question: {
-					titleQuestion: "",
-					descriptionQuestion: "",
-					userIdQuestion: "",
-					dateQuestion: "",
-					area: "",
-					bestByUser: "",
-					loves: [],
-				},
-				userId: "",
-				indexOfLove: -1,
-			}
-		},
-		methods: {
-			listQuestions(){
-				axios.get("/api/questions")
-					.then( response => {
-						this.questions = response.data;
-					})
-					.catch(error => {
-						console.log(error);
-					})
-			},
-			listQuestionsByArea(area) {
-				axios.get("/api/questionsbyarea/" + area)
-					.then(response => {
-						this.questions = response.data;
-					})
-					.catch(error => {
-						console.log(error);
-					})
-			},
-			showAddQuestion(){
-				this.adding = true;
-				this.new_question.dateQuestion = new Date(Date.now()).toISOString();
-			},
-			hideAddAndResetQuestion(){
-				this.adding = false;
-				this.new_question.titleQuestion = "";
-				this.new_question.descriptionQuestion = "";
-				this.new_question.area = "";
-			},
-			addQuestion(){
-				axios.post("/api/questions",this.new_question)
-					.then(response => {
-						this.questions.push(response.data);
-						this.hideAddAndResetQuestion()
-					})
-					.catch(error => {
-						console.log(error);
-					})
-			},
-			deleteQuestion(question_id,idx){
-				axios.delete("/api/answersbyquestionid/"+question_id)
-					.then(response => {
-						console.log("Deleted answers related to question " + question_id)
-					})
-					.catch(error => {
-						console.log(error);
-					})
+    data() {
+        return {
+            questions: [],
+            area: this.$route.params.area,
+            adding: false,
+            isAreaSetted: false,
+            new_question: {
+                titleQuestion: "",
+                descriptionQuestion: "",
+                userIdQuestion: "",
+                dateQuestion: new Date(Date.now()).toISOString(),
+                area: "",
+                bestByUser: "",
+                loves: [],
+            },
+            new_mod_question: {
+                titleQuestion: "",
+                descriptionQuestion: "",
+                userIdQuestion: "",
+                dateQuestion: "",
+                area: "",
+                bestByUser: "",
+                loves: [],
+            },
+            userId: "",
+            indexOfLove: -1,
+        }
+    },
+    methods: {
+        listQuestions() {
+            axios.get("/api/questions")
+                .then(response => {
+                    this.questions = response.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        },
+        listQuestionsByArea(area) {
+            axios.get("/api/questionsbyarea/" + area)
+                .then(response => {
+                    this.questions = response.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        },
+        showAddQuestion() {
+            this.adding = true;
+            this.new_question.dateQuestion = new Date(Date.now()).toISOString();
+        },
+        hideAddAndResetQuestion() {
+            this.adding = false;
+            this.new_question.titleQuestion = "";
+            this.new_question.descriptionQuestion = "";
+            this.new_question.area = "";
+        },
+        addQuestion() {
+            axios.post("/api/questions", this.new_question)
+                .then(response => {
+                    this.questions.push(response.data);
+                    this.hideAddAndResetQuestion()
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        },
+        deleteQuestion(question_id, idx) {
+            axios.delete("/api/answersbyquestionid/" + question_id)
+                .then(response => {
+                    console.log("Deleted answers related to question " + question_id)
+                })
+                .catch(error => {
+                    console.log(error);
+                })
 
-				axios.delete("/api/questions/"+question_id)
-					.then(response => {
-						this.questions.splice(idx,1);
-						console.log("Deleted question " + question_id)
-					})
-					.catch(error => {
-						console.log(error);
-					})
+            axios.delete("/api/questions/" + question_id)
+                .then(response => {
+                    this.questions.splice(idx, 1);
+                    console.log("Deleted question " + question_id)
+                })
+                .catch(error => {
+                    console.log(error);
+                })
 
-			},
-			sendIdToAnswer(question_id){
-				console.log("open question " + question_id);
-				router.push(`/answersbyid/${question_id}`, () => {});
-			},
-			loveQuestion(question_id,idx,newquestion){
-				this.new_mod_question.titleQuestion =  newquestion.titleQuestion;
-				this.new_mod_question.descriptionQuestion =  newquestion.descriptionQuestion;
-				this.new_mod_question.userIdQuestion =  newquestion.userIdQuestion;
-				this.new_mod_question.dateQuestion =  newquestion.dateQuestion;
-				this.new_mod_question.area =  newquestion.area;
-				this.new_mod_question.bestByUser =  newquestion.bestByUser;
-				newquestion.loves.push(this.userId);
-				this.new_mod_question.loves = newquestion.loves;
+        },
+        sendIdToAnswer(question_id) {
+            console.log("open question " + question_id);
+            router.push(`/answersbyid/${question_id}`, () => {
+            });
+        },
+        loveQuestion(question_id, idx, newquestion) {
+            this.new_mod_question.titleQuestion = newquestion.titleQuestion;
+            this.new_mod_question.descriptionQuestion = newquestion.descriptionQuestion;
+            this.new_mod_question.userIdQuestion = newquestion.userIdQuestion;
+            this.new_mod_question.dateQuestion = newquestion.dateQuestion;
+            this.new_mod_question.area = newquestion.area;
+            this.new_mod_question.bestByUser = newquestion.bestByUser;
+            newquestion.loves.push(this.userId);
+            this.new_mod_question.loves = newquestion.loves;
 
-				axios.put("/api/questions/"+question_id,this.new_mod_question)
-					.then(response => {
-						this.questions.splice(idx,1,response.data);
-					})
-					.catch(error => {
-						console.log(error);
-					})
-				console.log("question love");
-			},
-			notLoveQuestion(question_id,idx,newquestion){
-				this.new_mod_question.titleQuestion =  newquestion.titleQuestion;
-				this.new_mod_question.descriptionQuestion =  newquestion.descriptionQuestion;
-				this.new_mod_question.userIdQuestion =  newquestion.userIdQuestion;
-				this.new_mod_question.dateQuestion =  newquestion.dateQuestion;
-				this.new_mod_question.area =  newquestion.area;
-				this.new_mod_question.bestByUser =  newquestion.bestByUser;
-				this.indexOfLove = newquestion.loves.indexOf(this.userId);
-				newquestion.loves.splice(this.indexOfLove,1);
-				this.new_mod_question.loves = newquestion.loves;
+            axios.put("/api/questions/" + question_id, this.new_mod_question)
+                .then(response => {
+                    this.questions.splice(idx, 1, response.data);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+            console.log("question love");
+        },
+        notLoveQuestion(question_id, idx, newquestion) {
+            this.new_mod_question.titleQuestion = newquestion.titleQuestion;
+            this.new_mod_question.descriptionQuestion = newquestion.descriptionQuestion;
+            this.new_mod_question.userIdQuestion = newquestion.userIdQuestion;
+            this.new_mod_question.dateQuestion = newquestion.dateQuestion;
+            this.new_mod_question.area = newquestion.area;
+            this.new_mod_question.bestByUser = newquestion.bestByUser;
+            this.indexOfLove = newquestion.loves.indexOf(this.userId);
+            newquestion.loves.splice(this.indexOfLove, 1);
+            this.new_mod_question.loves = newquestion.loves;
 
-				axios.put("/api/questions/"+question_id,this.new_mod_question)
-					.then(response => {
-						this.questions.splice(idx,1,response.data);
-					})
-					.catch(error => {
-						console.log(error);
-					})
-				console.log("question not love");
-			},
-			controlMyQuest(idx){
-				if(this.questions.at(idx).loves.indexOf(this.userId) === -1){
-					return false;
-				} else {
-					return true;
-				}
-			},
-			isAuth(idx) {
-				if(this.questions.at(idx).userIdQuestion === this.userId){
-					return true
-				}
-				else
-					return false
-			},
-			setArea(){
-				if((this.area === null) || (this.area === "") || (typeof this.area === "undefined")) {
-					this.isAreaSetted = false;
-					this.new_question.userIdQuestion = this.userId;
-					this.listQuestions();
-				}
-				else {
-					this.isAreaSetted = true;
-					this.new_question.userIdQuestion = this.userId;
-					this.listQuestionsByArea(this.area);
-				}
-			},
-		},
-		mounted() {
-			this.userId = localStorage.getItem('username');
-			if((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")){
-				router.push(`/login`, () => {});
-			}
-			else {
-				this.setArea();
-			}
-		},
-		computed: {
-			isFilled() {
-				if((this.new_question.titleQuestion !== "") && (this.new_question.descriptionQuestion) !== "" && (this.new_question.area !== "")) {
-					return true;
-				}
-			}
-		},
-		filters: {
-			limit(text,length){
-				if(text==null) return ""
-				else if(text.length > Number(225)) {
-					return (text.substring(0, length).concat("[continue...]"));
-				} else {
-					return text.substring(0, length);
-				}
-			}
-		},
+            axios.put("/api/questions/" + question_id, this.new_mod_question)
+                .then(response => {
+                    this.questions.splice(idx, 1, response.data);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+            console.log("question not love");
+        },
+        controlMyQuest(idx) {
+            if (this.questions.at(idx).loves.indexOf(this.userId) === -1) {
+                return false;
+            } else {
+                return true;
+            }
+        },
+        isAuth(idx) {
+            if (this.questions.at(idx).userIdQuestion === this.userId) {
+                return true
+            } else
+                return false
+        },
+        setArea() {
+            if ((this.area === null) || (this.area === "") || (typeof this.area === "undefined")) {
+                this.isAreaSetted = false;
+                this.new_question.userIdQuestion = this.userId;
+                this.listQuestions();
+            } else {
+                this.isAreaSetted = true;
+                this.new_question.userIdQuestion = this.userId;
+                this.listQuestionsByArea(this.area);
+            }
+        },
+    },
+    mounted() {
+        this.userId = localStorage.getItem('username');
+        if ((this.userId === null) || (this.userId === "") || (typeof this.userId === "undefined")) {
+            router.push(`/login`, () => {
+            });
+        } else {
+            this.setArea();
+        }
+    },
+    computed: {
+        isFilled() {
+            if ((this.new_question.titleQuestion !== "") && (this.new_question.descriptionQuestion) !== "" && (this.new_question.area !== "")) {
+                return true;
+            } else {
+                return true
+            }
+        }
+    },
+    filters: {
+        limit(text, length) {
+            if (text == null) return ""
+            else if (text.length > Number(225)) {
+                return (text.substring(0, length).concat("[continue...]"));
+            } else {
+                return text.substring(0, length);
+            }
+        }
+    },
 }
