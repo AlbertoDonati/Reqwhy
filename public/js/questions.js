@@ -19,9 +19,9 @@ const Questions = {
 					<label>Description</label>
 					<textarea class="form-control" v-model="new_question.descriptionQuestion" id="descriptionQuestion" placeholder="Enter description"></textarea>
 				</div>
-				<div class="form-label">
-				    <label>Area</label>
-                    <select class="form-select" v-model="new_question.area" id="area">
+				<div class="form-group">
+				    <label class="form-label">Area</label>
+                    <select id="area" class="form-select" v-model="new_question.area" >
                          <option value="" disabled>Select area</option>
                          <option>IT</option>
                          <option>MATH</option>
