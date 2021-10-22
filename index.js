@@ -7,9 +7,7 @@ var path = require('path');
 
 global.appRoot = path.resolve(__dirname);
 
-var PORT = 3000;
-
-mongoose.connect('mongodb://localhost/reqwhy', { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/reqwhy', { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true });
 
 app.use(cors())
 
@@ -25,6 +23,6 @@ app.use(function(req, res) {
   res.status(404).send({url: req.originalUrl + ' not found'})
 });
 
-app.listen(PORT, function () {
-  console.log('Node API server started on port '+PORT);
+app.listen(3000, function () {
+  console.log('Node API server started on port '+ 3000);
 });
