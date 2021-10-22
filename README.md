@@ -1,5 +1,5 @@
 # Reqwhy
-This project is a sort of Yahoo answer, expecially made for university.
+This project is a sort of *Yahoo! Answers*, expecially made for university (students and teachers).
 
 
 **Clone the repository**
@@ -8,9 +8,10 @@ This project is a sort of Yahoo answer, expecially made for university.
 
 
 
-**Install dependecies**
+**Install the dependecies**
 
 `npm install`
+
 
 
 **Start the server**
