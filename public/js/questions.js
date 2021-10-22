@@ -20,8 +20,8 @@ const Questions = {
 					<textarea class="form-control" v-model="new_question.descriptionQuestion" id="descriptionQuestion" placeholder="Enter description"></textarea>
 				</div>
 				<div class="form-group">
-				    <label class="form-label">Area</label>
-                    <select id="area" class="form-select" v-model="new_question.area" >
+				    <label>Area</label>
+                    <select id="area" class="form-select" v-model="new_question.area">
                          <option value="" disabled>Select area</option>
                          <option>IT</option>
                          <option>MATH</option>
