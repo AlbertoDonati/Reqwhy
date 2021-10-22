@@ -4,7 +4,7 @@ This project is a sort of *Yahoo! Answers*, expecially made for university (stud
 
 **Clone the repository**
 
-`git clone https://github.com/AlbertoDonati/Reqwhy`
+`git clone https://github.com/AlbertoDonati/Reqwhy.git`
 
 
 
