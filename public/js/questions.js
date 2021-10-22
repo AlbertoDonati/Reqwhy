@@ -263,7 +263,7 @@ const Questions = {
             if ((this.new_question.titleQuestion !== "") && (this.new_question.descriptionQuestion) !== "" && (this.new_question.area !== "")) {
                 return true;
             } else {
-                return true
+                return false;
             }
         }
     },
