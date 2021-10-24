@@ -44,6 +44,3 @@ exports.delete_answers_by_question_id = function(req, res) {
 			}
 	});
 };
-
-
-
