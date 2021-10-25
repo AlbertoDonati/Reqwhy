@@ -7,12 +7,12 @@ const Navbar = {
                 
                 <li class="nav-item">
                 <button @click="goToSignUp()" type="button" class="btn btnsm">
-                     <i class="fas fa-user-plus"></i>
+                     <i class="fas fa-user-plus"> SignUp</i>
                 </button>
                 
                 <li class="nav-item">
                 <button @click="goToLogin()" type="button" class="btn btnsm">
-                     <i class="fas fa-user"></i>
+                     <i class="fas fa-user"> Login</i>
                 </button>
                 </li>
                 
