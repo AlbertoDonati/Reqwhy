@@ -72,12 +72,12 @@ const Questions = {
                 </td>
 				<td style="text-align: center;">
                          <button v-if="!controlMyQuest(index)" @click.prevent="loveQuestion(question._id,index,question)" type="button" class="btn btnsm">
-                         <i class="far fa-grin-hearts"></i>
+                         <i class="far fa-heart"></i>
                          {{question.loves.length}}
                          </button>
                         
                          <button v-if="controlMyQuest(index)" @click.prevent="notLoveQuestion(question._id,index,question)" type="button" class="btn btnsm">
-                         <i class="fas fa-grin-hearts"></i>
+                         <i class="fas fa-heart"></i>
                          {{question.loves.length}}
                          </button>
                 </td>        
