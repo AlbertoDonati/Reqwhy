@@ -14,8 +14,8 @@ const SignUp = {
 				</div>
 				<div class="form-group">
 					<label>password</label>
-					<i v-if="!showPassword" @click.prevent="showPsw" class="far fa-laugh" style="margin-left: 1%"></i>
-					<i v-if="showPassword" @click.prevent="showPsw" class="fas fa-laugh-squint" style="margin-left: 1%"></i>
+					<i v-if="!showPassword" @click.prevent="showPsw" class="far fa-eye-slash" style="margin-left: 1%"></i>
+					<i v-if="showPassword" @click.prevent="showPsw" class="fas fa-eye" style="margin-left: 1%"></i>
 					<input v-if="!showPassword" class="form-control" v-model="new_user.password" type="password" id="password_hidden" placeholder="Enter password">
 				    <input v-if="showPassword" class="form-control" v-model="new_user.password" type="text" id="password_show" placeholder="Enter password">
 				</div>
